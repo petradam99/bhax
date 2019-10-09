@@ -1,0 +1,299 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Mandelbrot!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>Reverse engineering UML osztálydiagram</title>
+        <para>
+UML osztálydiagram rajzolása az első védési C++ programhoz. Az osztálydiagramot a forrásokból
+generáljuk (pl. Argo UML, Umbrello, Eclipse UML) Mutassunk rá a kompozíció és aggregáció
+kapcsolatára a forráskódban és a diagramon, lásd még: https://youtu.be/Td_nlERlEOs.
+https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 fólia)
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+        <para>
+A feladat egy UML osztálydiagram elkészítése volt. Ehhez a Visual Paradigm programot vettem segítségül. A feladat még kérte, hogy a forráskód, amiről a diagram készül, az az első C++ védési feladat legyen, ami a binfa volt. A  program ezt 3 fő egységre bontotta szét, a globálisan elérhető dolgokra (változók, függvények, main), a Csomópont és az LZWBinFa osztályra. Feladat még a kompozíció és az aggregáció kapcsolata, erről írnék még egy kicsit. Az olvasónaplóban részletesebben ki van fejtve. Az aggregációt egy üres rombusz jelöli az uml diagramon azon az oldalon, ahol tartalmazás található (mivel az aggregáció tartalmazást jelent), a kompozíció pedig egy tömött rombusszal van jelölve, de a lényege hasonló, vagyis ennyi a különbség a kettő között. Jelen esetben, vagyis a mi példánknál is kompozícióról beszélhetünk, amely 2 helyen jelent meg. Ha kompozíciónk van, akkor csak együtt hozhatunk létre és szüntethetük meg azt, vagyis a tartalmazót és a tartalmazottat. Ebben a példában a gyökér jelenti a kompozíciót. Illetve a későbbi összehasonlításhoz beszúrnám a binfa csomópont osztályát.
+        </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Mandelbrot/umlbinfa.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    <programlisting language="c"><![CDATA[
+  class Csomopont
+  {
+  public:
+
+  Csomopont (char b = '/'):betu (b), balNulla (0), jobbEgy (0)
+    {
+    };
+    ~Csomopont ()
+    {
+    };
+    Csomopont (const Csomopont& elem){
+        
+        betu = elem.getBetu();
+        balNulla = new Csomopont;
+        jobbEgy = new Csomopont;
+        *balNulla= *(elem.nullasGyermek());
+        *jobbEgy= *(elem.egyesGyermek());
+    }
+    
+    Csomopont & operator= (const Csomopont& elem){
+        
+        betu = elem.getBetu();
+        Csomopont* ujBal = new Csomopont();
+        *ujBal = *(elem.nullasGyermek());
+        delete balNulla;
+        balNulla = ujBal;
+        Csomopont* ujJobb = new Csomopont();
+        *ujJobb = *(elem.egyesGyermek());
+        delete jobbEgy;
+        jobbEgy = ujJobb;
+        
+        return *this;
+    }
+   
+    Csomopont *nullasGyermek () const
+    {
+      return balNulla;
+    }
+    
+    Csomopont *egyesGyermek () const
+    {
+      return jobbEgy;
+    }
+  
+    void ujNullasGyermek (Csomopont * gy)
+    {
+      balNulla = gy;
+    }
+    
+    void ujEgyesGyermek (Csomopont * gy)
+    {
+      jobbEgy = gy;
+    }
+   
+    char getBetu () const
+    {
+      return betu;
+    }
+
+  private:
+   
+    char betu;
+    Csomopont *balNulla;
+    Csomopont *jobbEgy;
+    
+  };
+]]></programlisting>
+    </section>        
+
+    <section>
+        <title>Forward engineering UML osztálydiagram</title>
+        <para>
+UML-ben tervezzünk osztályokat és generáljunk belőle forrást!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+        <para>
+Ebben a feladatban azt a diagrammot használtam, amit az előző feladatban generáltam le a binfából. Így jól meg tudjuk figyelni szerintem az átalakításokat. Amikor diagrammról építünk fel egy kódot, vagyis generálunk le, akkor lényegében egy vázat kapunk vissza. Ebben a headereket látjuk jobban megjelenítve, a többi csak egy váz, az osztályok, amelyek a metódusokat tartalmazzák, ezek a metódusok viszont üresek (tehát a függvény törzse), nincsenek kifejtve. (Itt szintén Visual Paradigmot használtam.) És ezeket a vázlatokat kaptam vissza a programtól:
+        </para>
+        <para> A Csomopont.cpp: </para>
+        <programlisting language="c"><![CDATA[
+            #include "../../../.config/VisualParadigm/ws/VPProjects/Csomopont.h"
+
+Csomopont::Csomopont(char b) {
+    // TODO - implement Csomopont::Csomopont
+    throw "Not yet implemented";
+}
+
+Csomopont::Csomopont(const Csomopont& elem) {
+    // TODO - implement Csomopont::Csomopont
+    throw "Not yet implemented";
+}
+
+Csomopont* Csomopont::nullasGyermek() {
+    // TODO - implement Csomopont::nullasGyermek
+    throw "Not yet implemented";
+}
+
+Csomopont* Csomopont::egyesGyermek() {
+    // TODO - implement Csomopont::egyesGyermek
+    throw "Not yet implemented";
+}
+
+void Csomopont::ujNullasGyermek(Csomopont* gy) {
+    // TODO - implement Csomopont::ujNullasGyermek
+    throw "Not yet implemented";
+}
+
+void Csomopont::ujEgyesGyermek(Csomopont* gy) {
+    // TODO - implement Csomopont::ujEgyesGyermek
+    throw "Not yet implemented";
+}
+
+char Csomopont::getBetu() {
+    return this->betu;
+}
+]]></programlisting>
+    <para> Az LZWBinFa.cpp: </para>
+        <programlisting language="c"><![CDATA[
+            #include "../../../.config/VisualParadigm/ws/VPProjects/LZWBinFa.h"
+
+LZWBinFa::LZWBinFa() {
+    // TODO - implement LZWBinFa::LZWBinFa
+    throw "Not yet implemented";
+}
+
+LZWBinFa::LZWBinFa(LZWBinFa&& regi) {
+    // TODO - implement LZWBinFa::LZWBinFa
+    throw "Not yet implemented";
+}
+
+void LZWBinFa::kiir() {
+    // TODO - implement LZWBinFa::kiir
+    throw "Not yet implemented";
+}
+
+int LZWBinFa::getMelyseg() {
+    return this->melyseg;
+}
+
+double LZWBinFa::getAtlag() {
+    return this->atlag;
+}
+
+double LZWBinFa::getSzoras() {
+    return this->szoras;
+}
+
+void LZWBinFa::kiir(std::ostream& os) {
+    // TODO - implement LZWBinFa::kiir
+    throw "Not yet implemented";
+}
+
+LZWBinFa::LZWBinFa(const LZWBinFa& binfa) {
+    // TODO - implement LZWBinFa::LZWBinFa
+    throw "Not yet implemented";
+}
+
+void LZWBinFa::kiir(Csomopont* elem, std::ostream& os) {
+    // TODO - implement LZWBinFa::kiir
+    throw "Not yet implemented";
+}
+
+void LZWBinFa::szabadit(Csomopont* elem) {
+    // TODO - implement LZWBinFa::szabadit
+    throw "Not yet implemented";
+}
+
+void LZWBinFa::rmelyseg(Csomopont* elem) {
+    // TODO - implement LZWBinFa::rmelyseg
+    throw "Not yet implemented";
+}
+
+void LZWBinFa::ratlag(Csomopont* elem) {
+    // TODO - implement LZWBinFa::ratlag
+    throw "Not yet implemented";
+}
+
+void LZWBinFa::rszoras(Csomopont* elem) {
+    // TODO - implement LZWBinFa::rszoras
+    throw "Not yet implemented";
+}
+]]></programlisting>
+    <para> És a GLOBAL.cpp: </para>
+        <programlisting language="c"><![CDATA[
+            #include "../../../.config/VisualParadigm/ws/VPProjects/GLOBAL.h"
+
+void GLOBAL::usage() {
+    // TODO - implement GLOBAL::usage
+    throw "Not yet implemented";
+}
+
+int GLOBAL::main(int argc, char* argv[]) {
+    // TODO - implement GLOBAL::main
+    throw "Not yet implemented";
+}
+]]></programlisting>
+    <para> Valamint a programon belül itt tudjuk a visszafejtést megcsinálni: </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Mandelbrot/umltocode.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    </section>        
+
+    <section>
+        <title>Egy esettan!</title>
+        <para>
+A BME-s C++ tankönyv 14. fejezetét (427-444 elmélet, 445-469 az esettan) dolgozzuk fel!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+Az egységes modellezőnyelv, vagy más néven UML, a mai állás szerint az egyedüli (szabványos) modellező nyelv a szoftverfejlesztés terén. Emiatt viszont nagy támogatottsággal rendelkezik. Az osztálydiagram az osztályok, interfészek és más típusokat mutat be, valamint ábrázolja a köztük lévő kapcsolatot. Az általa létrehozott diagrammokat grafikus felületen mutatja be. Alkalmas például osztályok és az öröklődéseik bemutatására is, erre a későbbiekben fog példát mutatni a könyv. Egy ilyen osztálydiagram 3 részre oszlik: az első téglalapban az osztály nevét fedezhetjük fel, a következőben az attribútumait, a harmadikban pedig a műveleteit. Ha az utolsó két téglalapot nem szeretnénk látni, akkor létezik olyan funkciója a programnak, ami elrejti azt. Az attribútumok és műveletek előtt jelöléseket láthatunk (+ - # ~), ezek a láthatóságot jelölik, tehát public, private, protected vagy package (C++-ban nincs). Ha esetleg szükség lenne egy változó megadására, mert lényeges, akkor azt komment formájában jelölhetjük meg. Ha az attribútum után : jelet látunk, akkor az után a típusa van megadva. A multiplicitással intervallumot is megadhatunk ha szeretnénk, ezekre is különböző jelölések szolgálnak (könyv leírja ezeket). Ha nem adtunk meg, akkor 1-et fog alapértelmezettként kezelni. A tömbökre is kétféle jelölést használhatunk, az egyikkel megadva a konkrét számértéket, tehát statikus tömbünk lesz, a másikkal pedig dinamikus tömböt készíthetünk. A paraméterlistánál az irányokat is megadhatjuk, tehát in, out vagy inout (ki-, be- vagy kimenő és bemenő egyszerre). Ha egy osztály absztrakt, akkor azt is meg tudjuk jelölni a diagrammon. De ugyanígy az interfészt, struktúrát vagy az enum típust is meg tudjuk jelölni. Amikről eddig írtam, azok voltak csomópontként jelölve. A könyv itt egy szállásfoglalás menetét hozza fel példának, ahol a kapcsolatokat is részletesen bemutatja. Itt beszélhetünk asszociációkról, amik lényegében a kapcsolatok, és ehhez akár 2 szerepnév is tartozhat. (Itt pl munkavállaló és munkáltató, de nem feltétlen ilyen kapcsolat lehet, vagy lehet kevesebb szerepnév is). A C++ forráskódban amivel ezt a diagrammot létrehozták egy oda-vissza hivatkozás figyelhető meg, amely megoldás néha tényleg praktikus, de alapvetően nem. Az összerendelések megvalósításához pedig tömböket használnak, viszont lényeges, hogy a Reservationnél a pbill és a GetBill is vehet fel null értéket. A példában itt már látszik, hogy vannak privát dolgok, ezt jelzi a szerepnév előtt a "-" jel. Létezhet akár nulla multiplicitás is, nincs kizárva a lehetőségek közül. Ebben a példában a statikus tömb és a pointer nem elég, dinamikus és pointerek tömbje szükséges. Például ha új foglalást hozunk létre, akkor egy objektumlistára történő feliratkozással eleget tehetünk a kérésnek, de eltávolításra is van a programban függvény megírva. Ha pedig a láthatóságon szeretnénk változtatni, akkor privátból publikussá kell tenni ("+" jelre változik a "-"). A diagrammon az absztakt osztály dőlt betűvel lett megjelölve. Az asszociációk implementálása általában C++ nyelven pointerekkel történik meg. A minősített asszociáció az asszociatív tömb és a kulcsának a használatát mutatja be. A minősítőn keresztül a minősített asszociáció hoz létre kapcsolatot osztályok között. Az asszociációs osztály és az asszociáció kapcsolatát szaggatott vonallal jelölik. Az asszociációnak pedig 2 különböző fajtája van, az aggregáció (rombusz, tartalmazást jelöl), és a kompozíció (különbség, hogy itt a rombusz nem üres). Az UML diagrammoknál lehetőségünk van néhány esetben (művelet)sablonok létrehozására. Az osztálysablonok paramétereit a jobb felső sarokban jeleníthetjük meg. A példányosítás illetve a kifejtésre két lehetőség van, amelyre a könyv példát is hoz. Illetve lehetőségünk van arra, hogy mi magunk hozunk létre egy UML diagrammot, majd abból generáljuk le a forááskódot (az már kérdés mennyire hatékony). Más néven kódvisszafejtésnek is nevezik. Ha kódot hasonlítunk már meglévő kóddal, és csak a különbségre van szükségünk, akkor beszélünk modell-kód szinkronizálásról., illetve ennek ellentéte kód-modell szinkronizálás. Ezeknek az előállítására több program is segítséget nyújt, néhány sok terhet levesz a felhasználóról.
+	</para>
+	<para>
+Az esettanulmány a főbb nyelvi elemekre, vagyis pontosabban az objektumorientáltság eszközeire fog jobban koncentrálni, ami az öröklés és a virtuális függvényeket takarja. Az esettanulmány egy számítógép-alkatrészek és konfigurációjával foglalkozó kereskedés tervét dolgozza fel. Céljuk egy keretrendszer felépítése, amely támogatja a termékcsaládjaikat, és egy alkatrész kezelő alkalmazást szeretnének még ennek a segítségével létrehozni. A jövőbeli terv pedig az, hogy erre a keretrendszerre építve a lehető legkevesebb munkával készítsenek más termékcsaládokat támogató alkalmazásokat is. Az elvárások pedig a következők: a forráskód kiadása nélkül is használható legyen, adatfolyamok kezelését támogatnia kell, a termék attribútumai és az azokból történő árszámítás, a termék összetettsége, tehát elemi vagy összetett (több termékből áll). Az alkalmazásnak is van követelménye, a kijelző, merevlemez egység és a konfiguráció. Itt most a tesztalkalmazás fog elkészülni. Az osztálykezeléshez van egy előre elkészített C++ könyvtár, hogy csak a fejlécfájlokat kelljen behúzni, definiálni ne kelljen mindig. A termék bemutatására készítettek UML diagrammot. A termékeket pedig amennyire lehet megpróbálják egységesen kezelni. A Product osztály tagváltozói védettek, tehát külsősök számára csak olvashatók. A termék korának meghatározására a GetAge függvény szolgál. Az adott termék árát is mindig ki tudjuk számítani aktuálisan, ehhez leszármaztatást használnak. A terméktípusokat megkülönböztetik a számítások során, külön Product-leszármazottként kezelik. A HardDisk osztály felüldefiniál a programban, és specifikus termékosztályt ad ebben az esetben. A Print függvény pedig megjelenítésreszolgál, bemutatja a különböző termékeket. A termékek adatait adatfolyamba írják, ezt a writeParamsToStream tagfüggvény végzi el, amely a Product osztályban van. Az azonos, vagyis a közös paramétereket/tulajdonságokat gyűjti ki az adatfolyamba írás során. Az aktuális árat felesleges tárolni, hiszen az folyamatosan változik. Az adatfolyamba írás összetett feladat a példában, valamint a beírást és kiolvasát a globális operátorok túlterhelésével oldják meg. Az összetett termékkek bemutatására hozták létre a CompositeProduct osztályt. Ha összetett terméket szeretnénk beolvasni, akkor újra felüldefiniálásra van szükségünk. A termékek reprezentálására létrehozták a ProductInventory osztályt, ez betölt az adatfolyamból, beleír, memóriában tárol, megjelenít, stb... A termékeket, vagyis az objektumokat adatfolyamból beolvasással hozzuk létre, amelyeket a CompositeProduct és a ProductInventory-ból olvasunk be. Ennek célja a megfelelő Productból leszármaztatott objektum megalkotása és a termékkód beolvasása. Ezzel viszont sok probléma merül fel, amelyet a virtuális függvények és az indirekció oldhat meg, amennyiben jól használjuk azokat. A CreateProduct tagfüggvény a példányosítást végzi el (termékosztályt), és a pointerezést. Ennek a megfelelő működés érdekében absztakt függvénynek kell lennie. Ezután még egy felülírásra van szükség, amit a ProductFactory végez, és a termékek példányosítást ez végzi. A ProductFactory osztályunkat csak egyszer kell példányosítani, tehát csak egyre lenne szükségünk, ehhez viszont több helyről szeretnénk elérni. Ehhez kellett definiálni egy globális változót, majd inicializálni kell és egy statikus változóként be kell ágyazni a ProductFactory osztályba, és hozzáférést kell neki adni. Ezután pedig lehet tesztelni, mert a program összeállt. Rövidíthetünk a kódon, ha előre megírt függvényeket vagy sablonokat használunk, ezeket a könyvben az Algoritmusok fejezetben megtalálhatjuk. Gyorsíthatunk, vagy átláthatóbbá tehetjük még a programot, ha rendezünk például menet közben, így a kezelést is megkönnyebbítjük, vagy jobban tudjuk fejben tartani a dolgokat és kezelni azokat. De az előre definiált függvények a legpraktikusabbak ténylegesen. A formátumok okozhatnak problémát ha nem azonosak, erre kell megoldást keresni. Érdemes kutakodni ingyenesen letölthető megoldások között is, sok új funkciót érhetünk el ilyen módon, amivel a problémákat is könnyebb sokszor megoldani.
+	</para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Mandelbrot/esettan.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    </section>        
+
+    <section>
+        <title>BPMN</title>
+        <para>
+Rajzoljunk le egy tevékenységet BPMN-ben!
+https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_7.pdf (34-47 fólia)
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+        <para>
+A feladat nem volt túl bonyolult ebben a formában, hiszen egy a saját fejünkből kipattanó ötletet kellett megvalósítani. Szerintem hasonlít is valamennyire az UML diagrammhoz, amivel eddig dolgoztunk, hiszen mindkettő egyfajta működést/felépítést mutat be. Ahogyan a BPMN (Business Process Model and Notation) nevéből is következik, főleg üzleti dolgok modellezésére használják, elvégre ez is egy modellező eszköz, amivel grafikus felületen alakíthatjuk ki a megálmodott folyamatábrát. Én egy bevásárlós példát hoztam, ahol a pénztáros és a vásárlás kapcsolatát próbáltam megjeleníteni, illetve egy picit belevittem egy rossz szokásomat is a megjelenítésbe. Az ábra pedig a következő:
+        </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Mandelbrot/bpmn.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    </section>        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

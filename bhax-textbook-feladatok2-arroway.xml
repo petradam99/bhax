@@ -1,0 +1,287 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Arroway!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>OO szemlélet</title>
+        <para>
+A módosított polártranszformációs normális generátor beprogramozása Java nyelven. Mutassunk rá,
+hogy a mi természetes saját megoldásunk (az algoritmus egyszerre két normálist állít elő, kell egy
+példánytag, amely a nem visszaadottat tárolja és egy logikai tag, hogy van-e tárolt vagy futtatni kell
+az algot.) és az OpenJDK, Oracle JDK-ban a Sun által adott OO szervezés ua.!
+	</para>
+	<para>
+https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_5.pdf (16-22 fólia)
+Ugyanezt írjuk meg C++ nyelven is! (lásd még UDPROG repó: source/labor/polargen)
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+A magas szintű programozási nyelvekre jellemző az OO szemlélet, vagyis az objektum orientáltság. Ez jelen van a C++-ban és a Javaban is, melyek az osztályokban objektumokkal dolgoznak. A polartranszformációs algoritmus lényegében a tárolt adatokról szól. A program generál 2 számot, majd elkezdi vizsgálni a nincsTarolt változót. Ez egy boolen típusú változó, amely true vagy false, tehát igaz hamis értékeket tárol. Ami miatt szükség van rá: ha nincs tárolt szám, akkor a 2 generált értékből az egyiket letárolja, a másikat pedig visszaadja. Amennyiben pedig ha már korábban is volt tárolt érték, akkor azt adja vissza a program. Ezek után pedig a program mindig negálja a nincsTarolt változót, tehát az ellenkezőjére állítja (true -> false, vagy false -> true), így mindig változni fog, hogy melyik értéket adja éppen vissza. A negálás művelet miatt viszont csak minden második alkalommal fog lefutni a program (ezt a kovetkezo metódus hajtja végre), ez a true érték miatt történik, tehát ha a nincsTarolt éppen true, az if ág akkor fog elindulni, másképp az else ágra ugrik át.
+	</para>
+	<para>
+Ha érdekel minket, akkor a JDK-ból is kinyerhető a program egy kicsit másabb formában, de a lényege ugyan az: /jdk/src/share/classes/java/util és itt a Random.java fájl.
+	</para>
+	<para>
+A Java csipetek amiről írtam: az elsőben a minden második futás, illetve a 2 random szám generálása, illetve a negálás és az érték amit visszakapunk.
+	</para>
+<programlisting language="java"><![CDATA[
+if (nincsTarolt) {
+
+            double u1, u2, v1, v2, w;
+            do
+            {
+                u1 = Math.random();
+                u2 = Math.random();
+                v1 = 2 * u1 - 1;
+                v2 = 2 * u2 - 1;
+                w = v1 * v1 + v2 * v2;
+            }
+]]></programlisting>
+<programlisting language="java"><![CDATA[
+else
+        {
+            nincsTarolt = !nincsTarolt;
+            return tarolt;
+        }
+]]></programlisting>
+
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Prog2/Képek/polarc.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Prog2/Képek/polarjava.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+
+    </section>        
+
+    <section>
+        <title>Homokozó</title>
+	<para>
+A feladat megoldásánál tutorom volt: Tóth Attila
+	</para>
+        <para>
+Írjuk át az első védési programot (LZW binfa) C++ nyelvről Java nyelvre, ugyanúgy működjön!
+Mutassunk rá, hogy gyakorlatilag a pointereket és referenciákat kell kiirtani és minden máris működik
+(erre utal a feladat neve, hogy Java-ban minden referencia, nincs választás, hogy mondjuk egy
+attribútum pointer, referencia vagy tagként tartalmazott legyen).
+Miután már áttettük Java nyelvre, tegyük be egy Java Servletbe és a böngészőből GET-es kéréssel
+(például a böngésző címsorából) kapja meg azt a mintát, amelynek kiszámolja az LZW binfáját!
+(Tavalyi prog2 első védés volt.)
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+A feladat alap egysége megegyezik a Welch fejezet feladatával, vagyis az LZWBinfa felépítésével. Az akkori feladat aprogram C++-beli megalkotása volt, a mostani Javassal ellentétben. A Java nyelv osztálykezelésére épül, és az objektumorientáltságot is megfigyelhetjük, akár csak a többi magas szintű programozási nyelvben, valamint szerintem az olvasónaplóban is erről olvashattunk. A két nyelv közti különbség miatt lehet érdekes a program átírása egyik nyelvről a másikra, ugyanis Javaban nincsenek pointerek. A Java objektumokat ismer, és az értékeket csak referenciaként tudja átadni. A binfa működésétnem írnám le újra, mert a lényege és a feldolgozás alap módszere nem változott a korábbihoz képest. Az átírás során viszont az osztályokra és a függvényekre ügyelni kell, hogy minden helyesen legyen megadva (private, public például). Itt a binfa gyökere, vagyis az az objektum ami fix marad az egész program alatt, az a root lesz. Mindig ezt fogja visszaadni a Node függvény miután új értéket szúrt be. Az érték beszúrását pedig a write függvény végzi el. Ahhoz, hogy a csomópontok által megadott értékeket megtudjuk, get függvényt kell használni, az értékek beállításához pedig set-et. Szükségünk van egy doGet függvényre a http servlet miatt. A feladat megoldásához tomcatre volt szükség. A feladat megoldásához pedig a böngésző címsorából kell beolvasni a bemenetet. A szöveget ahogyan a képen is látszik a "?text=..." részről olvassa be. Emiatt volt szükség a html-re is. A kódokat pedig a hosszúságuk miatt nem szúrnám be ide, linkről elérhetőek lesznek.
+	</para>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Prog2/Képek/binfa1.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Prog2/Képek/binfa2.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+    </section>        
+
+    <section>
+        <title>„Gagyi”</title>
+        <para>
+Az ismert formális 
+        <programlisting language="c"><![CDATA[
+while (x <= t && x >= t && t != x);
+]]></programlisting>
+tesztkérdéstípusra adj a szokásosnál
+(miszerint x, t az egyik esetben az objektum által hordozott érték, a másikban meg az objektum
+referenciája) „mélyebb” választ, írj Java példaprogramot mely egyszer végtelen ciklus, más x, t
+értékekkel meg nem! A példát építsd a JDK Integer.java forrására 3 , hogy a 128-nál inkluzív objektum
+példányokat poolozza!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+Ahogy látom ez a feladat a Java osztálykezelésére és az objektumaira helyezi a hangsúlyt, mint ahogyan azt az olvasónaplóban is olvashattuk. Az Intiger osztály -128 és 127-es érték között pooloz, vagyis ezt készíti elő a poolban. A Java nyelv készítői úgy gondolták, hogy ez elég lesz a fejlesztők számára, itt fog megmutatkozni a 2 bemutatott pici program közötti különbség. Amennyiben az említett érték közötti értéket adunk meg, akkor a program simán lefut, mivel a ciklus feltétele teljesül, kilép, és visszakapjuk a kívánt eredményt. Amennyiben viszont ha az érték kívül esik a -128 és 127 közötti tartományon, akkor az Intiger osztály egy új objektumot fog létrehozni. Ennek a következménye pedig, hogy a while ciklus false értéket fog kapni, ekkor nem fut le a program, hanem átcsap egy végtelen ciklusba. A következő kódcsipet pedig a "new" operátor értelmét mutatja meg, ugyanis ha poolozunk, akkor két különböző objektum azonos referenciát kapna, viszont ha használjuk a new-t, akkor a probléma megszüntethető.
+	</para>
+	<para>
+Ha érdekel minket, akkor a JDK-ból is kinyerhető a program egy kicsit másabb formában, de a lényege ugyan az: /jdk/src/share/classes/java/lang és ebben a mappában az Intiger.java fájl tartalmazza.
+	</para>
+
+<programlisting language="java"><![CDATA[
+Integer x = new Integer(-127);
+Integer t = new Integer(127);
+	while (x <= t && x >= t && t != x)
+		{ System.out.println("Gagyi");  }
+	System.out.println("Gagyi vége");
+]]></programlisting>
+
+	<para>
+A képek pedig prezentálják, hogy ha megfelelő a tartomány akkor lefut a program, viszont ellenkező esetben végtelen ciklust kapunk.
+	</para>
+
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Prog2/Képek/Gagyivég.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Prog2/Képek/Gagyivégtelen.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+
+    </section>  
+
+    <section>
+        <title>Yoda</title>
+        <para>
+Írjunk olyan Java programot, ami java.lang.NullPointerEx-el leáll, ha nem követjük a Yoda
+conditions-t! https://en.wikipedia.org/wiki/Yoda_conditions
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+A képek segítségével szeretném bemutatni, hogy mi történik, ha nem követjük a Yoda conditionst, amelyet akár egyfajta szabálynak is nevezhetünk. Ez ténylegesen egy programozási stílus, ahol a fordított sorrenden van a hangsúly. A neve szerintem találó, hiszen a filmekben Yoda is tényleg fordított sorrendben beszélt. A programban használunk egy sztringet, aminek értéket adunk, jelen esetben null értéket. Ezt követően pedig ha az érték, vagyis a sztring a bal oldalra kerül és egy konstans pedig a jobb oldalra, akkor a program java.lang.NullPointerEx-el tényleg leáll, ha pedig a konstans a bal oldalon van, és a jobb oldalon az equals()-on (vagyis értéken belül) áll a null (vagyis a sztring), akkor lefut a program a Yoda conditions szerint, itt az if egy 0-ás értéket hasonlítana össze és leáll.
+	</para>
+	<para>Az első képen a hibaüzenet látható, a második képen pedig a helyesen működő program.</para>
+<programlisting language="java"><![CDATA[
+public class Yoda{
+
+	public static void main(String[] args) {
+		
+		String r = null;
+		if(r.equals("yodapélda")){
+			System.out.println(r);
+		}
+	}
+}
+]]></programlisting>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Prog2/Képek/yoda.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+<programlisting language="java"><![CDATA[
+public class Yoda2{
+
+	public static void main(String[] args) {
+		
+		String r = null;
+		if("yodapélda".equals(r));
+	}
+}
+]]></programlisting>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Prog2/Képek/yoda2.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+    </section>              
+
+    <section>
+        <title>Kódolás from scratch</title>
+        <para>
+Induljunk ki ebből a tudományos közleményből: http://crd-legacy.lbl.gov/~dhbailey/dhbpapers/bbp-
+alg.pdf és csak ezt tanulmányozva írjuk meg Java nyelven a BBP algoritmus megvalósítását!
+Ha megakadsz, de csak végső esetben: https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-
+javat/apbs02.html#pi_jegyei (mert ha csak lemásolod, akkor pont az a fejlesztői élmény marad ki,
+melyet szeretném, ha átélnél).
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+Sajnos számomra még nehéznek számított a feladat, ezért segítségül vettem Tanár Úr kódját. Szükséges a feladathoz matematikai háttértudás, de ennek a pótlása megoldható. A program lényege, hogy miután lefut, kiírja a pí szám néhány számjegyét, azt viszont hexadecimális formában kell tennie. A BBP algoritmus szolgál arra, hogy a kívánt számokból hexadecimális számok legyenek. Az algoritmus a PiBBP osztályon belül van, ahol a BBP létrehoz egy objektumot, ami a Pi-től függ. A számolás során szükség van maradékos osztásra, erre szolgál a mod (vagyis modulo). Az eredmény visszaadására lebegőpontos típusú változó szolgál. Itt az első 6 pontosat kapjuk vissza, de ha módosítjuk a 1000000 számot a példányosításnál, vagyis a d változót, ami PiBBP konstruktorban van, akkor változtathatunk a visszaadott hexadecimális eredményen. Jelen esetben a megadott d értékkel a pí 1 millió+1-edik elemét számíthatjuk ki.
+	</para>
+	<para>A következő kódcsipet a moduloval történő számításokat tartalmazza, vagyis a maradékos osztást. Ezeket az n16modk metódus tartalmazza. </para>
+<programlisting language="java"><![CDATA[
+    public long n16modk(int n, int k) {
+        
+        int t = 1;
+        while(t <= n)
+            t *= 2;
+        
+        long r = 1;
+        
+        while(true) {
+            
+            if(n >= t) {
+                r = (16*r) % k;
+                n = n - t;
+            }
+            
+            t = t/2;
+            
+            if(t < 1)
+                break;
+            
+            r = (r*r) % k;
+            
+        }
+        
+        return r;
+    }
+]]></programlisting>
+	<para>Itt pedig a példányosítás történik meg: </para>
+<programlisting language="java"><![CDATA[
+    public static void main(String args[]) {        
+        System.out.print(new PiBBP(1000000));
+]]></programlisting>
+	<para>Az első képen egymilliós d értékkel van kiszámolva a hexadecimális szám, a másodikon pedig százezressel.</para>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Prog2/Képek/pi.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Prog2/Képek/scratch5.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+    </section>              
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

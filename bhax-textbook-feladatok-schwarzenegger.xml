@@ -1,0 +1,101 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Schwarzenegger!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Szoftmax Py MNIST</title>
+        <para>
+            Python
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/j7f9SkJR3oc">https://youtu.be/j7f9SkJR3oc</link>      
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/tensorflow/tensorflow/releases/tag/v0.9.0">https://github.com/tensorflow/tensorflow/releases/tag/v0.9.0</link> (/tensorflow-0.9.0/tensorflow/examples/tutorials/mnist/), <link xlink:href="https://progpater.blog.hu/2016/11/13/hello_samu_a_tensorflow-bol">https://progpater.blog.hu/2016/11/13/hello_samu_a_tensorflow-bol</link>  
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+A program képes tanulni, vagyis a tanítás után képesek vagyunk a programmal felismertetni egy kézzel írt számjegyet, amely az MNIST kézzel írt számjegyes adatbázisából származik. Itt még nem kell túlbonyolítani a dolgot, ez egy kisebb példa, mint ahogyan a linken megadott példa, ha megnézzük. Az előbb leírtak alapján, itt rajzolt számok felismerése történik, tehát az adott képet ismeri fel. A program először tanul, majd ezt követően elkezdi tesztelni magát, kiírja a várható pontosságát, végül a megadott képre kiírja, hogy minek ismeri azt fel a hálózat. A program tanulásához van szükség a TensorFlow programra, ez egy könyvtár, amely szoftvereket tartalmaz, amelyek a tanulási és végrehajtási szoftvereket foglalják magukba. Ezen kívül a Python3 telepítése is szükséges. A példa szerint a Tanár Úr és Gimp által készített 8-ast isfelismeri a program. Ezt azután írja ki eredményül, ha megvizsgálta a képet, és már bezártuk azt. A classification tömb szolgál arra, hogy a könyvtárból kivett képre készített tippet tárolja. A TensorFlow programot a tensorflow hivatalos honlapjáról tudjuk telepíteni.
+	</para>
+    </section>        
+
+<!--
+    <section>
+        <title>Szoftmax R MNIST</title>
+        <para>
+            R            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+    </section>        
+-->
+    
+    <section>
+        <title>Mély MNIST</title>
+	<para> Turor (om volt): Takács Viktor </para> 
+        <para>
+            Python            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+Lényegében ugyan az, mint az előző feladat, csak apróbb különbségek vannak. A tanulási folyamat és a megjelenítés szintén azonos. A korábban leírt programok telepítése itt is szükséges, valamint a működése is azonos, tehát az MNIST adatbázisa szerint ismer fel. Az előző feladathoz képest a különbség, az a hatékonyságban rejlik. Ebben a feladatban a program több rejtett réteggel dolgozik, ez pedig megnöveli a felismerés pontosságát. Az eredeti MNIST algoritmussal kb 90% a program pontossága, de ha a rejtett rétegek számát megnöveljük, akkor a pontosság is nő (például 6 rejtett réteggel a pontosság kb 99,7%). Itt a hálóban vannak olyan rétegek, ahol nem mi határozzuk meg a súlyozást, hanem az algoritmus magának készíti el.
+	</para>
+    </section>        
+<!--
+    <section>
+        <title>Deep dream</title>
+        <para>
+            Keras            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+    </section>        
+-->                  
+    <section>
+        <title>Minecraft-MALMÖ</title>
+        <para>
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/bAPSu3Rndi8">https://youtu.be/bAPSu3Rndi8</link>      
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/Microsoft/malmo">https://github.com/Microsoft/malmo</link> </para>
+<para>			      <link xlink:href="https://bhaxor.blog.hu/9999/12/31/minecraft_steve_szemuvege">https://bhaxor.blog.hu/9999/12/31/minecraft_steve_szemuvege</link>              
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+Itt a probléma az, hogy hogyan irányítsuk a figuránkat. Ez úgy oldható meg, ha megvizsgáljuk, hogy merre van szabad út, és bizonyos szögekben (elég néhány fokban) elforgatjuk Stevet. Nem csak lapos síkban, vagyis 9 kockát kell vizsgálnunk, hanem 27-et, mivel akár felfelé vagy lefelé (levegő, víz) is lehet út. Ha van szabad útja, akkor kiírja a terminálban, hogy szaad az út, amennyiben nincs, akkor kiírja, hogy milyen akadály van előtte (pl water, grass, air), valamint irány, rácsindex, megtett táv és az éppen látott objektumok kiírása is megtörténik, ha a videóban vett példát vizsgáljuk. Amennyiben körbefordulás után sem tud egyenesen haladni, akkor (például) átugorja az előtte álló akadályt. A játékban az irányok, észak, dél, kelet és nyugat fix szögekbden meg vannak adva. A programon belül pedig Steve mozgásához több változó van deklarálva, amelyek a koordinátákat határozzák meg, ezeknek a módosításával tudjuk rávenni az irányváltásra, illetve az akadályon történő átjutásra. A kockákat, amiket említettem, blokkokként kell kezelni a program szempontjából, így hidalhatóak át a problémák.
+	</para>
+    </section>        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+</chapter>                
+

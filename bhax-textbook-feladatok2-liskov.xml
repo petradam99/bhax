@@ -1,0 +1,257 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Liskov!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>Liskov helyettesítés sértése</title>
+        <para>
+Írjunk olyan OO, leforduló Java és C++ kódcsipetet, amely megsérti a Liskov elvet! Mutassunk rá a
+megoldásra: jobb OO tervezés.
+https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_1.pdf (93-99 fólia)
+(számos példa szerepel az elv megsértésére az UDPROG repóban, lásd pl. source/binom/Batfai-
+Barki/madarak/)
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: (a Liskov-elv forrása) https://reiteristvan.wordpress.com/2011/07/05/s-o-l-i-d-objektum-orientalt-tervezesi-elvek-3-lsp/             
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+        <para>
+A feladat a Liskov behelyettesítési elvének a bemutatása volt. Szó szerint, vagyis csak magyarra lefordítva az elv a következő:
+        </para>
+        <programlisting language="c"><![CDATA[
+Ha S altípusa T-nek, akkor minden olyan helyen ahol T-t felhasználjuk S-t is minden gond nélkül behelyettesíthetjük anélkül, hogy a programrész tulajdonságai megváltoznának.
+        ]]></programlisting>
+        <para>
+Tehát az elv lényegében az öröklődést és a polimorfizmust is bemutatja, amelyről az olvasónaplóban már írtam. Az elv kimondja, hogy ha az S leszármazottja, vagyis gyermeke a T (szülő) osztálynak, akkor a gyermek behelyettesíthető minden olyan helyre, ahová eredetileg a T-t várnánk (paraméterek például). Ez az elv él végig a program során és feltételezi, hogy teljesül is. Gyakorlatilag viszont lehetséges, hogy a program igazként kezeli az adott esetet, ám a valóságban erre nincs lehetőség. Ennek a szemléltetésére szerintem jól érthető példa amit Tanár Úr írt le, így én is annak az elemzésénél maradnék (valamint a forráskód is erre épül, de akár lehetett volna téglalap-négyzet, vagy kör-ellipszis példa). Tehát ha a Liskov-elv szerint járunk el, és a madaras példánál maradunk, akkor a sasok és a pingvinek is repülhetnek. Ennek a megjelenítése a programban polimorfizmussal történik meg (repul a Madarakon, valamint a Sason és Pingvinen belül), valamint az öröklődés, ahol a szülő osztály a Madarak és a Sas és a Pingvin osztályok pedig a gyermekeket jelképezik (extends, leszármaztatás).
+        </para>
+        <programlisting language="c"><![CDATA[
+class Madar
+{
+        
+    public void repul()
+    {
+            System.out.println("A madar repul.\n");
+    }
+}
+
+class Sas extends Madar
+{
+    public void repul()
+        {
+        System.out.println("A sas repul.\n");
+        }
+}
+class Pingvin extends Madar
+{
+        public void repul()
+        {
+        System.out.println("A pingvin valojaban nem repulhetne.\n");
+        }
+}
+        ]]></programlisting>
+        <para>
+A probléma itt az, hogy ez az állítás nem igaz. Ahhoz, hogy igazzá tegyük, külön kell választanunk a madarakat, hogy melyek tudnak, és melyek nem tudnak repülni. Itt jönnek a képbe az absztakt osztályok, és az interfészek. (Az objektum orientáltság miatt nem nézhetjük meg igaz-hamis módszerrel.) Az interfészekkel válaszhatjuk szét két csoportra a madarakat, repülőkre, és nem repülőkre. A repül metódust pedig csak a repülő madarak használhatják (mivel csak itt van deklarálva a metódus), ezzel a módszerrel pedig továbbra is helyes marad a Liskov-elv. (A források mellékelve, nem szeretném teljes kódokkal tölteni a könyvet.)
+        </para>
+        <para>
+A képeken pedig a program működése (most csak Java, de a C++ kódok mellékelve vannak), előbbin a megkülönböztetés nélkül, utóbbin megkülönböztetéssel.
+        </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Liskov/liskov.png" format="png" scale="50"/>
+        </imageobject>
+    </mediaobject>
+        <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Liskov/liskovsert.png" format="png" scale="50"/>
+        </imageobject>
+    </mediaobject>
+
+
+    </section>        
+
+    <section>
+        <title>Szülő-gyerek</title>
+        <para>
+Írjunk Szülő-gyerek Java és C++ osztálydefiníciót, amelyben demonstrálni tudjuk, hogy az ősön keresztül csak az ős üzenetei küldhetőek!
+https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_1.pdf (98. fólia)
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+        <para>
+Ebben a feladatban szintén előjönnek azok a dolgok amikről az olvasónaplónak megadott könyvekben is olvashattunk, tehát az öröklődést, hatáskört és a polimorfizmust figyelhetjük meg. Az öröklődésre próbálunk ezzel a feladattal rácáfolni, vagyis pontosabban arra, hogy a szülőn keresztül nem küldhetjük el a gyermek üzeneteit, tehát ilyen formában agyermek üzenetei nem érhetőek el referenciával sem, mivel a szülőben ez nem volt definiálva. A láthatósági szintekről nem írnék, hiszen itt public-ként használtam mindent, nem volt rejtés. A hibaüzeneteket pedig már fordításkor jelzi a fordító, hogy a gyermek metódusa a szülőkön keresztül nem meghívhatók, csak fordítva lehetne, ha a gyermek örökölte volna a szülő metódusait. A programkódok mellékelve vannak (nem szúrnám be plusz helyfoglalás céljából).
+        </para>
+        <para>
+Valamint a fordítási hibákról a képek:
+        </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Liskov/szulocpp.png" format="png" scale="50"/>
+        </imageobject>
+    </mediaobject>
+        <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Liskov/szulojava.png" format="png" scale="50"/>
+        </imageobject>
+    </mediaobject>
+    </section>        
+
+    <section>
+        <title>Anti OO</title>
+        <para>
+A BBP algoritmussal 4 a Pi hexadecimális kifejtésének a 0. pozíciótól számított 10^6, 10^7, 10^8 darab
+jegyét határozzuk meg C, C++, Java és C# nyelveken és vessük össze a futási időket!
+https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apas03.html#id561066
+https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apbs02.html#pi_jegyei
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+        <para>
+A program megegyezik az Arroway csokorban elkészített Pi-vel dolgozó feladattal, a programkód megírásában van egy minimális különbség csak, a matematikai alapja ugyan az. A laptopomban amin a számításokat lefuttattam Intel Core i5-8250U processzor, és 8 GB Ram van. A C# futtatását Ubuntu alatt pedig dotnet segítségével oldottam meg. Amit kiemelnék, hogy a fordítás futtatásnál a C kódos programra figyeljünk, ugyanis használni kell egy -lm kapcsolót (gcc BPP.c -o bpp -lm).
+        </para>
+        <programlisting language="c"><![CDATA[
+    for (d = 1000000; d < 1000001; ++d)
+    {
+
+      d16Pi = 0.0;
+
+      d16S1t = d16Sj (d, 1);
+      d16S4t = d16Sj (d, 4);
+      d16S5t = d16Sj (d, 5);
+      d16S6t = d16Sj (d, 6);
+
+      d16Pi = 4.0 * d16S1t - 2.0 * d16S4t - d16S5t - d16S6t;
+
+      d16Pi = d16Pi - floor (d16Pi);
+
+      jegy = (int) floor (16.0 * d16Pi);
+
+    }
+]]></programlisting>
+        <para>
+A hatványok növeléséhez a for ciklus fejében kell a d változót módosítani, ez jelzi, hogy 10 a hanyadikont vizsgálunk. Ami most a példában szerepel az 10 a hatodikon.
+        </para>
+    <table frame='all'><title>Eredmények</title>
+<tgroup cols='5' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<colspec colname='c3'/>
+<colspec colname='c4'/>
+<colspec colnum='5' colname='c5'/>
+<thead>
+<row>
+  <entry>Nyelv es hatvany</entry>
+  <entry>C (sec)</entry>
+  <entry>C++ (sec)</entry>
+  <entry>C# (sec)</entry>
+  <entry>Java (sec)</entry>
+</row>
+</thead>
+<tfoot>
+<row>
+  <entry>8</entry>
+  <entry>230.134115</entry>
+  <entry>231,377710</entry>
+  <entry>243,9283811</entry>
+  <entry>206,013</entry>
+</row>
+</tfoot>
+<tbody>
+<row>
+  <entry>6</entry>
+  <entry>1.725870</entry>
+  <entry>1.736117</entry>
+  <entry>2,1079615</entry>
+  <entry>1.547</entry>
+</row>
+<row>
+  <entry>7</entry>
+  <entry>19.924895</entry>
+  <entry>19.974519</entry>
+  <entry>21,6759024</entry>
+  <entry>17.89</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Liskov/6on.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Liskov/7en.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Liskov/8on.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    </section>    
+
+    <section>
+        <title>Hello Android!</title>
+        <para>
+Élesszük fel az SMNIST for Humans projektet!
+https://gitlab.com/nbatfai/smnist/tree/master/forHumans/SMNISTforHumansExp3/app/src/main
+Apró módosításokat eszközölj benne, pl. színvilág.
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+        <para>
+Ahhoz, hogy hozzá kezdhessünk a feladathoz először is szükségünk lesz valamire, ami képes android programot futtatni (valamilyen IDE), én az android studiot választottam erre a célra. Még a program telepítése közben érdemes megjelölni, hogy telepítse fel a virtuális android eszközt is. Miután először megpróbáltam feléleszteni a progit, felbukkant az első hiba. A .grade fájlt kellett pótolni ekkor, majd ezután a konfigurációt kellett helyesen megcsinálni, miután a fájlokat beimportáltuk. Itt még a konfiguráció során utána kell nézni, hogy a forráson mit kell módosítani (hiszen gyorsan változik SDK). Végül az aktuálisan legújabb api verziós androiddal futtattam le a progit (api 29, Android Q). A programban a színvilágon végeztem módosítást, ami már nem volt nehéz feladat (az elején az indítás okozott némi fejvakarást). Ki kellett keresni a megfelelő java forrást, amelyekben a színvilág van definiálva, majd az RGB kódot átírhattuk a kívánt színre, illetve a szöveg színénél (például) a konkrét szín nevét kellett átírni (BLACK -> RED). Ezek pedig pontosan a SMNISTSurfaceView.java fájlban találhatóak meg. Az android studio lehetőséget ad nem csak az android verzió kiválasztására, de a felbontást is tudjuk befolyásolni. A második kép pont ezt mutatja be, hogy hol választhatunk.
+        </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Liskov/android.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Liskov/android2.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    <para>
+Az android studio ahogy a fenti képeken is látszik, virtuális eszközként kezdi el futtatni a programot amikor kipróbáljuk, de ha ki szeretnénk próbálni a saját mobilunkon, azt is megtehetjük. Az android studioban van egy build apk-s funkció, amellyel megkapunk egy .apk kiterjesztésű fájlt. Ezt csak át kell húznunk a mobilra és telepíteni, aztán játszhatunk is.
+    </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Liskov/smnist.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    </section>             
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

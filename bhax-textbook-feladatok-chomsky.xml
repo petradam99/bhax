@@ -1,0 +1,633 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Chomsky!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Decimálisból unárisba átváltó Turing gép</title>
+        <para>
+            Állapotátmenet gráfjával megadva írd meg ezt a gépet!
+        </para>
+	<para>
+	    Tutoriált (am volt): Egyed Anna
+	</para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: előadás fóliák            
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Képek/turing2.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Képek/turing1.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<para>
+A Turing gép Alan Turing nevéhez fűződik. Ez egyfajta absztrakt automata amellyel a digitális számítógépeket jeleníti meg egyszerűsített formában. Az átváltás folyamata nem túl bonyolult. Egész és pozitív számok ábrázolására vagyunk képesek így. A menete: 2 db 0 között annyi egyest írunk, hogy azoknak az összege megyegyezzen az általunk kigondolt számmal.
+	</para>
+    </section>        
+        
+    <section>
+        <title>Az a<superscript>n</superscript>b<superscript>n</superscript>c<superscript>n</superscript> nyelv nem környezetfüggetlen</title>
+        <para>
+            Mutass be legalább két környezetfüggő generatív grammatikát, amely ezt a nyelvet generálja!
+        </para>
+	<para>
+	    Tutor (om volt): Egyed Anna
+	</para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:  előadás fóliák              
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+
+        <programlisting language="c"><![CDATA[
+A grammatika forrása az előadás fólia.
+A, B, C  legyenek változók
+a, b, c legyenek konstansok
+A → aAB, A → aC, CB → bCc, cB → Bc, C → bc
+
+            A (A→aAB)
+
+            aaAB (A→ aAB)
+
+            aaaaCB (CB→ bCc)
+
+            aaabbCcc (C→bc)
+
+            aaaaaaabbbbCcccBcc (cB→ Bc)
+
+            aaaaabbbbCBccc (CB→ bCc)
+
+            aaaaaaabbbbCccccc (C→ bc)
+
+
+S, X, Y  legyenek változók
+a, b, c legyenek konstansok
+S → abc, S → aXbc, Xb → bX, Xc → Ybcc, bY → Yb, aY -> aaX, aY → aa
+A grammatika forrása az előadás fólia.
+
+            S(S→aXbc)
+
+            aXbcc(Xb→bX)
+
+            aaabbXc(Xc→Ybcc)
+
+            aabbYbccc(bY→Yb)
+
+            aaaYbbbcc(aY→aaX)
+
+            aaaaXbbcccc(Xb→bX)
+
+            aaabbbXbcccc(Xb→bX)
+
+]]></programlisting>
+
+	<para>
+Ez egy generatív nyelv, amelyet Noam Chomsky nyelvész dolgozott ki. Főként formális nyelvek osztályozásához alkalmazzák. A nyelvtannak 4 fő összetevője van: a konstansok, a változók, egy kitüntetett szimbólum (itt S), és a helyettesítési szabályok. A helyettesítésekre ügyelnünk kell. A nyelv környezetfüggő, tehát a szó hossza nem csökkenhet generálás közben.
+	</para>
+
+    </section>        
+                
+    <section>
+        <title>Hivatkozási nyelv</title>
+        <para>
+            A <citation>KERNIGHANRITCHIE</citation> könyv C referencia-kézikönyv/Utasítások melléklete alapján definiáld 
+            BNF-ben a C utasítás fogalmát!
+            Majd mutass be olyan kódcsipeteket, amelyek adott szabvánnyal nem fordulnak (például C89), mással (például C99) igen.
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása:  
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+		Kernighan Brian W. és Ritchie Dennis M., A C programozási nyelv, 1993-ban kiadott könyve alapján írom itt le az utasítás fogalmát. Az utasításokkal hajtjuk végre a feladatokat, amiket szeretnénk. Az utasítások után mindig teszünk ; jelet, például: printf( ...amit ki szeretnénk íratni... ); . Léteznek utasítás tömbök, vagy más néven blokkok is, amelyek így egyetlen utasításként funkciolnálnak. A tömböket "utasítás utána utasításoknak" is nevezhetjük. Az utasítástömbök mindig {} zárójelek között vannak. Például egy for(...) vagy while(feltétel) után nyitjuk a { zárójelet, ahová beírjuk az összes végrehajtani kívánt utasítást, majd zárjuk a } zárójelet.
+	</para>
+	<para>
+		A C nyelvet többször is fejlesztették, és javítottak rajta, ezekre szolgálnak a szabványok. A C89 szabványt 1983-ban, míg a C99 szabványt 2000-ben adták ki. A C89-nek több hibája, elmaradottsága is van a C99-hez képest. Például a C89-ben a for ciklusfejben nem lehet változót deklarálni, és ez a szabvány a C99-cel ellentétben a // jelű kommentet sem ismeri. Az regyetlen komment típus amit ismer, az a /* */ . A fordítás C89 szabvány szerint: gcc -o hivatkozas -std=c89 hivatkozas.c  . A C99 fordítása hasonló: gcc -o hivatkozas -std=c99 hivatkozas.c
+	</para>
+    </section>                     
+
+    <section>
+        <title>Saját lexikális elemző</title>
+        <para>
+            Írj olyan programot, ami számolja a bemenetén megjelenő valós számokat! 
+            Nem elfogadható olyan megoldás, amely maga olvassa betűnként a bemenetet, 
+            a feladat lényege, hogy lexert használjunk, azaz óriások vállán álljunk és ne kispályázzunk!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása: https://gitlab.com/nbatfai/bhax/blob/master/thematic_tutorials/bhax_textbook_IgyNeveldaProgramozod/Chomsky/realnumber.l 
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+		A lexek felhasználásával lexikális elemző programot tudunk létrehozni. Jelen esetben egy adott szövegben szereplő számokat számolja meg. Erre szolgál a szamok_szama nevezetű változó. Amikor a szövegben talál egy számot, akkor megnöveli 1-gyel a változó értékét. Ctrl+D paranccsal tudjuk megszakítani a program futását, ez az input végét jelenti, majd ezután kiírja, hogy hány darabot talált. A %% jelek elválasztási céllal működnek, azok darabolják fel a programot részekre. A program végén pedig kiírjuk a valós számok számát. Először egy C nyelvű kódot kell generálnunk: lex -o lexszam.c lexszam.l  . A fordításhoz van szükségünk a lexszam.c-re: gcc lexszam.c -o lexszam -lfl  . A futtatás már a normál megszokott módon történik ./lexszam. Megszakítás Ctrl+D paranccsal. Egy működő leet, a bhax-ról:
+	</para>
+	<para> A leet fájl, realnumber.l </para>
+        <programlisting language="c"><![CDATA[
+%{
+#include <stdio.h>
+int realnumbers = 0;
+%}
+digit	[0-9]
+%%
+{digit}*(\.{digit}+)?	{++realnumbers; 
+    printf("[realnum=%s %f]", yytext, atof(yytext));}
+%%
+int
+main ()
+{
+ yylex ();
+ printf("The number of real numbers is %d\n", realnumbers);
+ return 0;
+}
+]]></programlisting>
+	<para> A lexszam.l, amelynek működéséről írtam kicsit: </para>
+        <programlisting language="c"><![CDATA[
+%{
+#include <string.h>
+int szamok_szama = 0;
+%}
+%%
+[0-9]+ ++szamok_szama;
+[a-zA-Z][a-zA-Z0-9]* ;
+%%
+int
+main()
+{
+yylex();
+printf("%d szam\n", szamok_szama);
+return 0;
+}
+]]></programlisting>
+    </section>                     
+
+    <section>
+        <title>l33t.l</title>
+        <para>
+            Lexelj össze egy l33t ciphert!
+        </para>
+	<para> Tutoriált (am volt): Ranyhóczki Mariann, Ignéczi Tibor </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása:  BHAX csatorna forrásai
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+		A lexerrel elkészítjük a C nyelvű programunkat, a parancs amit Linuxon használnunk kell hozzá: lex -o leet.c leet.l  . Ezután fordítjuk a programot, majd megkapjuk a futtatható fájlt: gcc leet.c -o leet -lfl  . A leet.l fájlban a %% szakasztörést jelent. Az includeban szükségünk van a time.h fájlra, azaz az időre, ami a random számok generálásához kell. A generált számra a betű, illetve szám helyettesítéshez van szükségünk. A változtatni kívánt betűk és számok után újabb 4 karakter van írva {} zárójelek közé, ezekkel lesznek helyettesítve. És innentől van szükségünk a random számokra. A program generál egyet, ami maximum 100 lehet, és elkezdi vizsgálni. Ha a szám 91-től kisebb, akkor a 4 választható karakter "oszlop" közül az elsőt fogja választani. Ha 91-95 között van, akkor a másodikat, ha 95-98 között, akkor a harmadikat, másképp, azaz 98-100 között a negyediket fogja választani a tömbből.
+	</para>
+        <programlisting language="c"><![CDATA[
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <time.h>
+  #include <ctype.h>
+
+  #define L337SIZE (sizeof l337d1c7 / sizeof (struct cipher))
+    
+  struct cipher {
+    char c;
+    char *leet[4];
+  } l337d1c7 [] = {
+
+  {'a', {"4", "4", "@", "/-\\"}},
+  {'b', {"b", "8", "|3", "|}"}},
+  {'c', {"c", "(", "<", "{"}},
+  {'d', {"d", "|)", "|]", "|}"}},
+  {'e', {"3", "3", "3", "3"}},
+  {'f', {"f", "|=", "ph", "|#"}},
+  {'g', {"g", "6", "[", "[+"}},
+  {'h', {"h", "4", "|-|", "[-]"}},
+  {'i', {"1", "1", "|", "!"}},
+  {'j', {"j", "7", "_|", "_/"}},
+  {'k', {"k", "|<", "1<", "|{"}},
+  {'l', {"l", "1", "|", "|_"}},
+  {'m', {"m", "44", "(V)", "|\\/|"}},
+  {'n', {"n", "|\\|", "/\\/", "/V"}},
+  {'o', {"0", "0", "()", "[]"}},
+  {'p', {"p", "/o", "|D", "|o"}},
+  {'q', {"q", "9", "O_", "(,)"}},
+  {'r', {"r", "12", "12", "|2"}},
+  {'s', {"s", "5", "$", "$"}},
+  {'t', {"t", "7", "7", "'|'"}},
+  {'u', {"u", "|_|", "(_)", "[_]"}},
+  {'v', {"v", "\\/", "\\/", "\\/"}},
+  {'w', {"w", "VV", "\\/\\/", "(/\\)"}},
+  {'x', {"x", "%", ")(", ")("}},
+  {'y', {"y", "", "", ""}},
+  {'z', {"z", "2", "7_", ">_"}},
+  
+  {'0', {"D", "0", "D", "0"}},
+  {'1', {"I", "I", "L", "L"}},
+  {'2', {"Z", "Z", "Z", "e"}},
+  {'3', {"E", "E", "E", "E"}},
+  {'4', {"h", "h", "A", "A"}},
+  {'5', {"S", "S", "S", "S"}},
+  {'6', {"b", "b", "G", "G"}},
+  {'7', {"T", "T", "j", "j"}},
+  {'8', {"X", "X", "X", "X"}},
+  {'9', {"g", "g", "j", "j"}}
+  
+// https://simple.wikipedia.org/wiki/Leet
+  };
+  
+%}
+%%
+.	{
+	  
+	  int found = 0;
+	  for(int i=0; i<L337SIZE; ++i)
+	  {
+	  
+	    if(l337d1c7[i].c == tolower(*yytext))
+	    {
+	    
+	      int r = 1+(int) (100.0*rand()/(RAND_MAX+1.0));
+	    
+          if(r<91)
+	        printf("%s", l337d1c7[i].leet[0]);
+          else if(r<95)
+	        printf("%s", l337d1c7[i].leet[1]);
+	      else if(r<98)
+	        printf("%s", l337d1c7[i].leet[2]);
+	      else 
+	        printf("%s", l337d1c7[i].leet[3]);
+
+	      found = 1;
+	      break;
+	    }
+	    
+	  }
+	  
+	  if(!found)
+	     printf("%c", *yytext);	  
+	  
+	}
+%%
+int 
+main()
+{
+  srand(time(NULL)+getpid());
+  yylex();
+  return 0;
+}
+]]></programlisting>
+
+    </section>                     
+
+
+    <section>
+        <title>A források olvasása</title>
+        <para>
+            Hogyan olvasod, hogyan értelmezed természetes nyelven az alábbi kódcsipeteket? Például
+            <programlisting><![CDATA[if(signal(SIGINT, jelkezelo)==SIG_IGN)
+    signal(SIGINT, SIG_IGN);]]></programlisting>
+            Ha a SIGINT jel kezelése figyelmen kívül volt hagyva, akkor ezen túl is legyen
+            figyelmen kívül hagyva, ha nem volt figyelmen kívül hagyva, akkor a jelkezelo függvény
+            kezelje. (Miután a <command>man 7 signal</command> lapon megismertem a SIGINT jelet, a
+            <command>man 2 signal</command> lapon pedig a használt rendszerhívást.)
+        </para>
+<para> Ezzel a pici programmal kiíratjuk a megfogott signalt. Fordítás: gcc forras.c -o forras és a futtatás: ./forras .Megszakítás Ctrl+C billentyűkombinációval, ekkor írja ki, hogy A signal: 2.(jelen esetben) </para> 
+        <programlisting language="c"><![CDATA[
+#include<signal.h>
+#include<stdio.h>
+
+void jelkezelo(int sig){
+		printf("A signal %d\n", sig);
+}
+
+int main() {
+	for(;;){
+		if(signal(SIGINT,jelkezelo)==SIG_IGN)
+		signal(SIGINT,SIG_IGN);
+	}
+}
+]]></programlisting>
+
+        <caution>
+            <title>Bugok</title>
+            <para>
+                Vigyázz, sok csipet kerülendő, mert bugokat visz a kódba! Melyek ezek és miért? 
+                Ha nem megy ránézésre, elkapja valamelyiket esetleg a splint vagy a frama?
+            </para>
+        </caution>
+            
+        <orderedlist numeration="lowerroman">
+            <listitem>                                    
+                <programlisting><![CDATA[if(signal(SIGINT, SIG_IGN)!=SIG_IGN)
+    signal(SIGINT, jelkezelo);]]></programlisting>
+            </listitem>
+            <listitem>                                    
+                <programlisting><![CDATA[for(i=0; i<5; ++i)]]></programlisting>            
+            </listitem>
+            <listitem>                                    
+
+                <programlisting><![CDATA[for(i=0; i<5; i++)]]></programlisting>            
+            </listitem>
+            <listitem>                                    
+
+                <programlisting><![CDATA[for(i=0; i<5; tomb[i] = i++)]]></programlisting>            
+            </listitem>
+            <listitem>                                    
+
+                <programlisting><![CDATA[for(i=0; i<n && (*d++ = *s++); ++i)]]></programlisting>            
+            </listitem>
+            <listitem>                                    
+
+                <programlisting><![CDATA[printf("%d %d", f(a, ++a), f(++a, a));]]></programlisting>            
+            </listitem>
+            <listitem>                                    
+
+                <programlisting><![CDATA[printf("%d %d", f(a), a);]]></programlisting>            
+            </listitem>
+            <listitem>                                    
+
+                <programlisting><![CDATA[printf("%d %d", f(&a), a);]]></programlisting>            
+            </listitem>
+        </orderedlist>
+        <para>
+            Megoldás forrása:  
+        </para>
+
+        <para>
+            Megoldás videó: 
+        </para>
+
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+		A program működőképességéhez szükséges includolni a signal.h fájlt. Létrehozunk egy jelkezelo nevű függvényt, ebben lesz a kiíratás. A főfüggvényben szereplő végtelen ciklus miatt manuálisan kell megszakítani a futást, ugyanis a ciklus végig ellenőrzi. Amikor Ctrl+C paranccsal megállítjuk a futást, akkor kiírja a program az elkapott signalt.
+	</para>
+	<para>
+		A Bugok, splint használatával:
+	</para>
+	<para>
+		Normál fordítással lefordul a program, de eredményül nem ad semmit, illetve létre kell hoznunk a jelkezelo függvényt. A hibaüzenet splint mellett:
+	</para>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Képek/i.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<para>
+		Az ii. feladatban a for ciklus először megnöveli eggyel az i értékét, majd utána fut le a ++i miatt. A hiba splint mellett:
+	</para>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Képek/ii.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<para>
+		Az iii. feladat ugyan olyan mint az előző, annyi a különbség, hogy itt először lefut a program, majd az i-t csak utána növeli meg. A hiba splint mellett:
+	</para>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Képek/iii.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<para>
+		Az iv. feladatban normál fordítás mellett deklarálnunk kell egy i változót és egy tomb nevű tömböt. A hibaüzenet splint mellett:
+	</para>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Képek/iv.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<para>
+		A v. feladatban már mutatókkal kell dolgozni, és ezeket is deklarálni kell a fordításhoz, lefordul, de valójában hibás. A hibaüzenet splittel:
+	</para>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Képek/v.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<para>
+		A vi. feladatban kiíratás szerepel egy a változó és f függvény segítségével. A ++a jelentése, hogy először megnöveli az a-t mielőtt bármit csinálna. A hibaüzenet splittel:
+	</para>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Képek/vi.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<para>
+		A vii. feladatban újra kiíratás van printf függvénnyel, az a változóval. A hibaüzenet splittel:
+	</para>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Képek/vii.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+	<para>
+		A viii. feladatban továbbra is printf függvény, a változó és a mutató szerepel. A hibaüzenet splittel:
+	</para>
+	<mediaobject>
+		<imageobject condition="print">
+		 <imagedata fileref="Képek/viii.png" format="png"/>
+		</imageobject>
+	</mediaobject>
+
+    </section>                     
+
+    <section>
+        <title>Logikus</title>
+        <para>
+            Hogyan olvasod természetes nyelven az alábbi Ar nyelvű formulákat?
+        </para>
+        <programlisting language="tex"><![CDATA[$(\forall x \exists y ((x<y)\wedge(y \text{ prím})))$ 
+
+$(\forall x \exists y ((x<y)\wedge(y \text{ prím})\wedge(SSy \text{ prím})))$ 
+
+$(\exists y \forall x (x \text{ prím}) \supset (x<y)) $ 
+
+$(\exists y \forall x (y<x) \supset \neg (x \text{ prím}))$
+]]></programlisting>        
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/blob/master/attention_raising/MatLog_LaTeX">https://gitlab.com/nbatfai/bhax/blob/master/attention_raising/MatLog_LaTeX</link>
+        </para>
+
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/ZexiPy3ZxsA">https://youtu.be/ZexiPy3ZxsA</link>, <link xlink:href="https://youtu.be/AJSXOQFF_wk">https://youtu.be/AJSXOQFF_wk</link>
+        </para>
+
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+Az első kifejezés szerint bármelyik x mellet találunk olyan y-t, ahol y-tól kisebb az x, és az y prím szám. Eszerint az állítás szerint a prím számok száma végtelen sok.
+	</para>
+	<para>
+A második szerint bármelyik x-hez van olyan y, amitől x kisebb, mindkét szám prím, valamint y+2 is prím.
+	</para>
+	<para>
+A harmadik szerint létezik olyan y, hogy minden x-nél, ha az prím, akkor y nagyobb, mint x.
+	</para>
+	<para>
+A negyedik szerint létetik olyan y, hogy minden x-nél, ha x nagyobb, mint y, abban az esetben az x szám nem prím. Eszerint a feltételezés szerint véges sok a prímek száma.
+	</para>
+    </section>                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    <section>
+        <title>Deklaráció</title>
+            
+        <para>
+            Vezesd be egy programba (forduljon le) a következőket: 
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <para>egész</para>                        
+            </listitem>
+            <listitem>
+                <para>egészre mutató mutató</para>                        
+            </listitem>
+            <listitem>
+                <para>egész referenciája</para>                        
+            </listitem>
+            <listitem>
+                <para>egészek tömbje</para>                        
+            </listitem>
+            <listitem>
+                <para>egészek tömbjének referenciája (nem az első elemé)</para>                        
+            </listitem>
+            <listitem>
+                <para>egészre mutató mutatók tömbje</para>                        
+            </listitem>
+            <listitem>
+                <para>egészre mutató mutatót visszaadó függvény</para>                        
+            </listitem>
+            <listitem>
+                <para>egészre mutató mutatót visszaadó függvényre mutató mutató</para>                        
+            </listitem>
+            <listitem>
+                <para>egészet visszaadó és két egészet kapó függvényre mutató mutatót visszaadó, egészet kapó függvény</para>                        
+            </listitem>            
+            <listitem>
+                <para>függvénymutató egy egészet visszaadó és két egészet kapó függvényre mutató mutatót visszaadó, egészet kapó függvényre</para>                        
+            </listitem>            
+        </itemizedlist>            
+
+       <para>
+            Mit vezetnek be a programba a következő nevek?
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <programlisting><![CDATA[int a;]]></programlisting>            
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int *b = &a;]]></programlisting>            
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int &r = a;]]></programlisting>            
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int c[5];]]></programlisting>            
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int (&tr)[5] = c;]]></programlisting>            
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int *d[5];]]></programlisting>            
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int *h ();]]></programlisting>            
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int *(*l) ();]]></programlisting>            
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int (*v (int c)) (int a, int b)]]></programlisting>            
+            </listitem>            
+            <listitem>
+                <programlisting><![CDATA[int (*(*z) (int)) (int, int);]]></programlisting>            
+            </listitem>            
+        </itemizedlist>       
+
+
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása:  GitLab, BHAX
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+	<para>
+		A deklarációkkal változókat vezetünk a programunkba. A C nyelvben a változókat mindig a program elején vezetjük be, ebben az esetben biztosan nem kapunk emiatt hibaüzenetet. A mostani programban a typedef paranccsal egy új típust definiálunk. Ezt csak egyszer kell végrehajtanunk, a továbbiakban pedig sokkal könnyebben használhatjuk, nem kell újra kifejteni semmit sem, és a programunk is rövidebb lesz. A globális változók az egész programon keresztül élnek, tehát ha újra bevezetnénk valamit ugyan olyan néven, akkor hibásan működne a program. Ha függvényt hozunk létre a () zárójeleken belül is tudunk deklarálni, ezek a változók csak ezen a függvényen belül élnek, így később egy másik függvényben újra használhatjuk ugyan azt a változó nevet. Ebben a programban például a sum függvény szerepel, ahol az a és b változót a függvényen belül vezetjük be, majd a visszatérési értéke ennek a két változó értékének az összege lesz. Ettől függetlenül kedvünk szerint használhatunk tömböket és mutatókat is, attól függően, hogy mit kíván az adott feladat, mivel gondoljuk a megoldást a legcélszerűbbnek.
+	</para>
+        <programlisting><![CDATA[
+#include <stdio.h>
+
+typedef int (*F) (int, int);
+typedef int (*(*G) (int)) (int, int);
+
+int
+sum (int a, int b)
+{
+    return a + b;
+}
+
+int
+mul (int a, int b)
+{
+    return a * b;
+}
+
+F sumormul (int c)
+{
+    if (c)
+        return mul;
+    else
+        return sum;
+}
+
+int
+main ()
+{
+
+    F f = sum;
+
+    printf ("%d\n", f (2, 3));
+
+    G g = sumormul;
+
+    f = *g (42);
+
+    printf ("%d\n", f (2, 3));
+
+    return 0;
+}
+]]></programlisting>            
+
+    </section>                     
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
