@@ -22,7 +22,7 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/adatok.html
             Tanulságok, tapasztalatok, magyarázat...
         </para>
         <para>
-Ebben a feladatban a forráson nem kellett módosítani a megoldás érdekében, viszont tartalmaz olyan karaktereket (a forrás és a forrás neve), amely a fordító nem ismer fel alapjáraton, és rengeteg hibaüzenetet kapunk ha simán javac-cal próbálnánk fordítani. Az alap karakterkészletünk az ami nem jó, ugyanis az angol megnevezéseket nem érdemes vegyíteni a magyarral, tehát ha valamit nevesíteni szeretnénk, azt nem érdemes magyarul megtennünk. (A forrásunk egy tömörített állomány volt, és ebben találhattunk 3 Mandelbrot java fájl ha kibontottuk. Futtatáshoz szükséges mind a 3.) És a lényeg: Az ISO-8859 szabványra van szükség, hogy ne zavarjanak be a magyar nevek.
+Ebben a feladatban a forráson nem kellett módosítani a megoldás érdekében, viszont tartalmaz olyan karaktereket (a forrás és a forrás neve), amely a fordító nem ismer fel alapjáraton, és rengeteg hibaüzenetet kapunk ha simán javac-cal próbálnánk fordítani. Az alap karakterkészletünk az ami nem jó, ugyanis az angol megnevezéseket nem érdemes vegyíteni a magyarral, tehát ha valamit nevesíteni szeretnénk, azt nem érdemes magyarul megtennünk. (A forrásunk egy tömörített állomány volt, és ebben találhattunk 3 Mandelbrot java fájl ha kibontottuk. Futtatáshoz szükséges mind a 3.) És a lényeg: Az ISO-8859 szabványra van szükség, hogy ne zavarjanak be a magyar nevek. Ha belegondolunk, végül is az olvasónaplóban már olvashattunk ezekről a karakterkészletekről, ez a feladat pedig jól szemléltette egynek a működését.
         </para>
     <mediaobject>
         <imageobject condition="print">
@@ -41,6 +41,7 @@ Ebben a feladatban a forráson nem kellett módosítani a megoldás érdekében,
         <para>
 Írj olyan OO Java vagy C++ osztályt, amely leet cipherként működik, azaz megvalósítja ezt a betű helyettesítést: https://simple.wikipedia.org/wiki/Leet (Ha ez első részben nem tetted meg, akkor írasd ki és magyarázd meg a használt struktúratömb memóriafoglalását!)
         </para>
+        <para> Tutorom volt: Tóth Attila </para>
         <para>
             Megoldás videó:
         </para>
@@ -49,6 +50,9 @@ Ebben a feladatban a forráson nem kellett módosítani a megoldás érdekében,
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+        </para>
+        <para>
+Prog1-en már volt egy hasonló feladatunk, csak ott leeteléssel volt megoldva a feladat, nem egy oo nyelven. A Lexer osztályba kerültek be sztingek, amelyek tartalmazzák, hogy az adott betű mit vehet fel alakként (ez private, hiszen nem kellene rajta módosítani semikor). Majd aszöveg feltöltés után azt, hogy a megadott 4 választási lehetőségből melyikkel történik meg a helyettesítés, azt egy randommal választjuk ki. Tehát ebből is látszik, hogy eléggé hasonlít a korábbi feladathoz, bár a megjelenítése azért változott. A feladatban a java Scanner osztálya is felhasználásra került, ezzel tudjuk a terminálból bekérni a bemenetet. Ha nem kap bemenetet a program, tehát simán entert ütünk, akkor megáll. Előtte viszont egy végtelen ciklussal kér be folyamatosan szöveget. A Lexer osztály pedig lex néven lett példányosítva. Egy pici gyorsítás volt a nagybetűk miatt, a 'text.toLowerCase()' átalakítja azokat kicsire, így nem kell külön vizsgálni a nagy és a kis betűket, hanem mehet egyben.
         </para>
     <mediaobject>
         <imageobject condition="print">
@@ -71,6 +75,9 @@ Lásd vis_prel_para.pdf! Apró módosításokat eszközölj benne, pl. színvil�
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+        <para>
+Arról, hogy mi is ez a Pasziográfia Rapszódia, a vis_prel_para doksiban olvashatunk részletesebben. Röviden összegezve pedig az esport mesterségesen kialakított nyelve, mivel a humunkulusz és a mesterséges humunkulsz között próbál meg kapcsolatot/kommunikációt kialakítani. Ez egy harmadlagos fejlesztendő nyelv pontosan, amely az esport játékba van beágyazva. A feladatban pedig konkrétan a vizualizációval tudunk szórakozni. Visszatérve a humunkuluszra pedig, ezt Neumann nevéhez köthetjük, és ennek a létrejöttéhez szükséges a központi idegrendszer, valamint a donaldi külső memória, illetve az ezekből kiinduló elméleti háttér. Ez az egész elmélet lényegében a komplexitás méréséről szól, tehát az idegrendszer és a külső memória, vagy akár a humunkulusz és a mesterséges humunkulusz komplexitását is össze tudja hasonlítani, és ami fontos neki, az az, hogy a humunkulusz által létrehozott mesterséges humunkulusz összehasonlítható legyen, vagy akár a mesterséges meghaladja a létrehozóét is. Nos ez lett volna az elméleti háttér röviden. Ha pedig ki szeretnénk próbálni, akkor először telepítenünk kell az opengl-t, és a további szükséget csomagokat. A fordítás futtatás a forrásban már szintén megtalálható, utóbbihoz még 6 darab képre van szükségünk, másra már nem. És valami ilyesmi eredményt kapunk ekkor.
+        </para>
     <mediaobject>
         <imageobject condition="print">
          <imagedata fileref="Prog2/Képek/Chomsky/rapszódia.png" format="png"/>
@@ -92,6 +99,9 @@ Lásd https://youtu.be/XpBnR31BRJY
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+        </para>
+        <para>
+A perceptron osztály szintén egy Prog1-ről visszatérő feladat, vagyis részben. Ez egy neurális háló lényegében, és egy függvény értékkel dolgozik, de a működését akkor leírtam, nem részletezném újra. Most annyi módosítást kellet rajta végezni, hogy a számításokkal módosítani is tudjon. A számításokat a neuronok hajtják végre. Ez a módosítás pedig az RGB színek módosítása, vagyis az átszínezés. Ha tudjuk a színek kódjait, akkor nemcsak a 3 alapszínt tudjuk vele elérni, hanem mást is. A neuronok pedignál pedig szerintem a ki- és bemenetinél van még jelentőség, ugyanis ezek között kapcsolat van (mint az idegek között), ez a súlyösszeköttetés. Ezen pedig lehet módosítani. A végzett módosítások után pedig ha elindítom a perceptront (jelen esetben egy mandelbrotból generált képre), akkor ilyen eredményt kapok.
         </para>
     <mediaobject>
         <imageobject condition="print">
