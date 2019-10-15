@@ -21,12 +21,25 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/adatok.html
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+        <para>
+Ebben a feladatban a forráson nem kellett módosítani a megoldás érdekében, viszont tartalmaz olyan karaktereket (a forrás és a forrás neve), amely a fordító nem ismer fel alapjáraton, és rengeteg hibaüzenetet kapunk ha simán javac-cal próbálnánk fordítani. Az alap karakterkészletünk az ami nem jó, ugyanis az angol megnevezéseket nem érdemes vegyíteni a magyarral, tehát ha valamit nevesíteni szeretnénk, azt nem érdemes magyarul megtennünk. (A forrásunk egy tömörített állomány volt, és ebben találhattunk 3 Mandelbrot java fájl ha kibontottuk. Futtatáshoz szükséges mind a 3.) És a lényeg: Az ISO-8859 szabványra van szükség, hogy ne zavarjanak be a magyar nevek.
+        </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Chomsky/encoding1.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Chomsky/encoding2.png" format="png"/>
+        </imageobject>
+    </mediaobject>
     </section>        
 
     <section>
-        <title>OOCWC lexer</title>
+        <title>l334d1c4</title>
         <para>
-Izzítsuk be az OOCWC-t és vázoljuk a https://github.com/nbatfai/robocar-emulator/blob/master/justine/rcemu/src/carlexer.ll lexert és kapcsolását a programunk OO struktúrájába!
+Írj olyan OO Java vagy C++ osztályt, amely leet cipherként működik, azaz megvalósítja ezt a betű helyettesítést: https://simple.wikipedia.org/wiki/Leet (Ha ez első részben nem tetted meg, akkor írasd ki és magyarázd meg a használt struktúratömb memóriafoglalását!)
         </para>
         <para>
             Megoldás videó:
@@ -37,24 +50,12 @@ Izzítsuk be az OOCWC-t és vázoljuk a https://github.com/nbatfai/robocar-emula
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Chomsky/lexer.png" format="png" scale='50'/>
+        </imageobject>
+    </mediaobject>
     </section>   
-
-    <section>
-        <title>Full screen (ZÖLD)</title>
-        <para>
-Készítsünk egy teljes képernyős Java programot!
-Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#labirintus_jatek
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>        
 
     <section>
         <title>Paszigráfia Rapszódia OpenGL full screen vizualizáció</title>
@@ -70,23 +71,12 @@ Lásd vis_prel_para.pdf! Apró módosításokat eszközölj benne, pl. színvil�
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Chomsky/rapszódia.png" format="png"/>
+        </imageobject>
+    </mediaobject>
     </section>        
-
-    <section>
-        <title>Paszigráfia Rapszódia LuaLaTeX vizualizáció</title>
-        <para>
-Lásd vis_prel_para.pdf! Apró módosításokat eszközölj benne, pl. színvilág, még erősebb 3D-s hatás.
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>     
 
     <section>
         <title>Perceptron osztály</title>
@@ -103,6 +93,11 @@ Lásd https://youtu.be/XpBnR31BRJY
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Chomsky/perceptron.png" format="png"/>
+        </imageobject>
+    </mediaobject>
     </section>           
         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

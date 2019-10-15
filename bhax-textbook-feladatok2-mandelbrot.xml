@@ -116,124 +116,49 @@ UML-ben tervezzünk osztályokat és generáljunk belőle forrást!
             Tanulságok, tapasztalatok, magyarázat...
         </para>
         <para>
-Ebben a feladatban azt a diagrammot használtam, amit az előző feladatban generáltam le a binfából. Így jól meg tudjuk figyelni szerintem az átalakításokat. Amikor diagrammról építünk fel egy kódot, vagyis generálunk le, akkor lényegében egy vázat kapunk vissza. Ebben a headereket látjuk jobban megjelenítve, a többi csak egy váz, az osztályok, amelyek a metódusokat tartalmazzák, ezek a metódusok viszont üresek (tehát a függvény törzse), nincsenek kifejtve. (Itt szintén Visual Paradigmot használtam.) És ezeket a vázlatokat kaptam vissza a programtól:
+A kódot egy Téglalap-Négyzet példából generáltam le, vagyis forrásként egy téglalap-négyzet kapcsolatot valósítottam meg osztályokkal. Amikor diagrammról építünk fel egy kódot, vagyis generálunk le, akkor lényegében egy vázat kapunk vissza. Ebben a headereket látjuk jobban megjelenítve, a többi csak egy váz, az osztályok, amelyek a metódusokat tartalmazzák, ezek a metódusok viszont üresek (tehát a függvény törzse), nincsenek kifejtve. (Itt szintén Visual Paradigmot használtam.) És ezeket a vázlatokat kaptam vissza a programtól:
         </para>
-        <para> A Csomopont.cpp: </para>
+        <para> A Square.java: </para>
         <programlisting language="c"><![CDATA[
-            #include "../../../.config/VisualParadigm/ws/VPProjects/Csomopont.h"
+public class Square extends Rectangle {
+  public Rectangle _unnamed_Rectangle_;
 
-Csomopont::Csomopont(char b) {
-    // TODO - implement Csomopont::Csomopont
-    throw "Not yet implemented";
-}
+  public Square(int aSide) {
+    throw new UnsupportedOperationException();
+  }
 
-Csomopont::Csomopont(const Csomopont& elem) {
-    // TODO - implement Csomopont::Csomopont
-    throw "Not yet implemented";
-}
-
-Csomopont* Csomopont::nullasGyermek() {
-    // TODO - implement Csomopont::nullasGyermek
-    throw "Not yet implemented";
-}
-
-Csomopont* Csomopont::egyesGyermek() {
-    // TODO - implement Csomopont::egyesGyermek
-    throw "Not yet implemented";
-}
-
-void Csomopont::ujNullasGyermek(Csomopont* gy) {
-    // TODO - implement Csomopont::ujNullasGyermek
-    throw "Not yet implemented";
-}
-
-void Csomopont::ujEgyesGyermek(Csomopont* gy) {
-    // TODO - implement Csomopont::ujEgyesGyermek
-    throw "Not yet implemented";
-}
-
-char Csomopont::getBetu() {
-    return this->betu;
+  public int getArea() {
+    throw new UnsupportedOperationException();
+  }
 }
 ]]></programlisting>
-    <para> Az LZWBinFa.cpp: </para>
+    <para> Az Rectangle.java: </para>
         <programlisting language="c"><![CDATA[
-            #include "../../../.config/VisualParadigm/ws/VPProjects/LZWBinFa.h"
+public class Rectangle {
+  public int _m_width;
+  public int _m_height;
+  public Square _unnamed_Square_;
 
-LZWBinFa::LZWBinFa() {
-    // TODO - implement LZWBinFa::LZWBinFa
-    throw "Not yet implemented";
-}
+  public Rectangle(int aWidth, int aHeight) {
+    throw new UnsupportedOperationException();
+  }
 
-LZWBinFa::LZWBinFa(LZWBinFa&& regi) {
-    // TODO - implement LZWBinFa::LZWBinFa
-    throw "Not yet implemented";
-}
+  public int getWidth() {
+    throw new UnsupportedOperationException();
+  }
 
-void LZWBinFa::kiir() {
-    // TODO - implement LZWBinFa::kiir
-    throw "Not yet implemented";
-}
-
-int LZWBinFa::getMelyseg() {
-    return this->melyseg;
-}
-
-double LZWBinFa::getAtlag() {
-    return this->atlag;
-}
-
-double LZWBinFa::getSzoras() {
-    return this->szoras;
-}
-
-void LZWBinFa::kiir(std::ostream& os) {
-    // TODO - implement LZWBinFa::kiir
-    throw "Not yet implemented";
-}
-
-LZWBinFa::LZWBinFa(const LZWBinFa& binfa) {
-    // TODO - implement LZWBinFa::LZWBinFa
-    throw "Not yet implemented";
-}
-
-void LZWBinFa::kiir(Csomopont* elem, std::ostream& os) {
-    // TODO - implement LZWBinFa::kiir
-    throw "Not yet implemented";
-}
-
-void LZWBinFa::szabadit(Csomopont* elem) {
-    // TODO - implement LZWBinFa::szabadit
-    throw "Not yet implemented";
-}
-
-void LZWBinFa::rmelyseg(Csomopont* elem) {
-    // TODO - implement LZWBinFa::rmelyseg
-    throw "Not yet implemented";
-}
-
-void LZWBinFa::ratlag(Csomopont* elem) {
-    // TODO - implement LZWBinFa::ratlag
-    throw "Not yet implemented";
-}
-
-void LZWBinFa::rszoras(Csomopont* elem) {
-    // TODO - implement LZWBinFa::rszoras
-    throw "Not yet implemented";
+  public int getHeight() {
+    throw new UnsupportedOperationException();
+  }
 }
 ]]></programlisting>
-    <para> És a GLOBAL.cpp: </para>
+    <para> És a GLOBAL.java: </para>
         <programlisting language="c"><![CDATA[
-            #include "../../../.config/VisualParadigm/ws/VPProjects/GLOBAL.h"
+public class GLOBAL {
 
-void GLOBAL::usage() {
-    // TODO - implement GLOBAL::usage
-    throw "Not yet implemented";
-}
-
-int GLOBAL::main(int argc, char* argv[]) {
-    // TODO - implement GLOBAL::main
-    throw "Not yet implemented";
+  public int main() {
+    throw new UnsupportedOperationException();
+  }
 }
 ]]></programlisting>
     <para> Valamint a programon belül itt tudjuk a visszafejtést megcsinálni: </para>
