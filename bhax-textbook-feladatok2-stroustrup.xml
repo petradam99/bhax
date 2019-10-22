@@ -7,8 +7,9 @@
     </info>
 
     <section>
-        <title>A BPP algoritmus Java megvalósítása</title>
+        <title>JDK osztályok</title>
         <para>
+Írjunk olyan Boost C++ programot (indulj ki például a fénykardból) amely kilistázza a JDK összes osztályát (miután kicsomagoltuk az src.zip állományt, arra ráengedve)!
         </para>
         <para>
             Megoldás videó:
@@ -17,14 +18,19 @@
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+A program kiindulási alapja a fénykard.cpp volt, ugyanis mindkettő tartalmazza a boost állományokat, vagyis azt, amit a feladat szeretne bemutatni. A boostoláshoz ebben a példában a Boost.Filesystem könyvtárra volt szükség. Mivel a JDK folyamatosan frissül, így a végeredmények is változhatnak verziótól függően. Én a 8-asat használtam. Amint a képen is látszik, elég sok osztályt tartalmazott az src. A futás végén a szám ezeknek a darabszámát jelöli, hiszen egyesével megszámolni egy embernek elég sokáig tartana. A forrásra kitérve kicsit pedig egy rekurzív bejárással lett megoldva. A bejárás során felhasználunk egy vektort is, szerintem elengedhetetlen elem a megoldáshoz. A vizsgálat során megnézi a program, hogy mappa vagy fájl az adott elem. Ha mappa, akkor belemegy, és annak a tartalmát vizsgálja, ha pedig fájlt talált, akkor annak a kiterjesztését fogja megnézni. Ha ".java" végződésű fájlt talált, akkor az kell nekünk, hiszen az biztosan egy java fájl. Ezután pedig mehet tovább a vizsgálat. Itt van benne egy számláló, hogy ha talált ilyen fájlt, akkor a változó értékét növelje meg eggyel, így a futás végén megkapjuk pontosan hány ilyen fájlt talált.
         </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Strous/jdk.png" format="png"/>
+        </imageobject>
+    </mediaobject>
     </section>        
 
     <section>
-        <title>Java osztályok a Pi-ben</title>
+        <title>Változó argumentumszámú ctor és Összefoglaló összevonva</title>
         <para>
-            Az előző feladat kódját fejleszd tovább: vizsgáld, hogy Vannak-e Java osztályok a Pi hexadecimális kifejtésében!
+Készítsünk olyan példát, amely egy képet tesz az alábbi projekt Perceptron osztályának bemenetére és a Perceptron ne egy értéket, hanem egy ugyanakkora méretű „képet” adjon vissza. (Lásd még a 4 hét/Perceptron osztály feladatot is.)
         </para>
         <para>
             Megoldás videó:
@@ -33,8 +39,35 @@
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+A feladat első verziója még prog1-re nyúlik vissza. Illetve a múltheti csokor elkészítésemmel is fog egyezéseket mutatni, mivel már azt a feladatot is úgy készítettem el, hogy a kép méret azonos maradjon. A változás pusztán annyi, hogy itt már a Perceptron osztály által visszaadott értékre nincs szükségünk, hanem csak egy átalakított képet szeretnénk visszakapni. Az összehasonlíthatóság végett most is a Mandelbrot halmaz által elkészített képet használom majd fel. Illetve itt jobban ki szeretném fejteni a feladatot, és ezáltal összevonni az "Összefoglaló" feladattal is. Ha szeretnénk, akkor szerintem még itt érdemes összekötni a feladatot az olvasónaplóval, ugyanis itt szintén dolgozunk az osztály miatt konstruktorral és destruktorral, valamint a változó argumentumszámmal is, de annak a kódcsipetét később megjelölöm.
         </para>
+        <para>
+A Mandelbrot-halmazról itt nem mesélnék feleslegesen, hiszen ez is egy prog1-es feladatból indult ki, illetve a múltheti csokorban az encoding által is újra szerephez juthatott. A feladatban a Perceptron osztály a halmaz által legenerált képet fogja átszínezni az rgb kódok manipulálásával, ami a forrásban látszódni is fog.
+        </para>
+        <para>
+A Perceptron alapját a neurális hálók adják, vagyis lényegében ebből áll az egész. Ha hasonlítanom kellene valamihez, akkor hozzánk, az emberek működéséhez tudnám, hiszen nekünk is az idegrendszerünkben rengeteg ilyen neuron és neurális háló található, de a biológiai részletekbe inkább nem mennék bele. Ennek viszont a súlyozásban látom az egyik fő értelmét. A Perceptronban megjelenő neuronokat ugyanis össze kell kötni, másképp nem áll össze belőle a hálózat, nem maradhatnak szabad végződések. A súlyozásnak még a számításban van nagy szerepe, ugyanis a súlyok változtatásával módosul a számítások pontossága is, a hibák lehetőségének a csökkentése. Emiatt használják fel a Perceptront a gépi tanuláshoz.
+        </para>
+        <para>
+Ha jobban megvizsgáljuk, találhatunk benne egy sigmoid függvényt:  1.0/(1.0+exp(-x)). Ez a függvény több számításnál is szerepet kap. Szerintem ami lényegesebb, az a kép méreténél végzett számítása, hiszen azzal is dolgozik (szélesség*magasság). A függvény értéke a [0,1] intervallumon van meghatározva, más eredményt nem is adhat, emiatt alkalmas valószínűség számításhoz is. Ezután foglalkoznék következőnek a main.cpp-vel. Ebben lesz egy mlp.hpp includolva, de erre visszatérek később. A másik include pedig az aktuális feladat miatt szükséges, hiszen egy képpel kell foglalkoznunk, ehhez pedig elengedhetetlen forrás a libpng csomag, amelyet az alábbi módon hívunk meg: (nélküle a program nem tudna képeket kezelni)
+        </para>
+        <programlisting language="c"><![CDATA[
+#include "mlp.hpp"
+#include <png++/png.hpp>
+]]></programlisting>
+        <para>
+Ezután kezdhetünk foglalkozni a képpel. A meghatározás után a kép méretének létrehozunk egy size változót, amelyben rögtön 2 függvénnyel is találkozhatunk és fel is használjuk. Ezek a get.width() és get.height() függvények, tehát a szélesség és a magasság meghatározása, majd ezeknek a szorzata megadja a kép méretét. Ezután jön a példányosítás, amely new Perceptronnal, és ez visszamutat egy pointerrel a Perceptronra (ezért láthatjuk ott a *-ot), majd a double-lel szintén. Ha itt nem használnánk pointert, működésképtelen lenne a program, hoszen nem adná át megfelelően az értékeket. A Perceptron most 3 réteggel fog dolgozni, ezt jelöli a példányosításkor a 3-as, ahol size van, vagyis az 1. és 3. réteg a kép méreteivel fog dolgozni (ezért kapunk vissza azonos méretű képet), a második, 256 értéket felvevő érték pedig az rgb kód miatt van. Majd ezek után for ciklusokkal járjuk be a képet, lényegében a pixelekből egy mátrix készül: png_image[i][j]. Majd az átszínezés is ugyan ezen az elven fog végig menni, tehát a kép pixelein mátrixként megy végig, és egyesével átszínezi a meghatározott színű pixeleket. Ezért volt fontos a szélesség és magasság meghatározása az elején, mert a mátrix 2 for ciklusa ezek alapján lépked pontról pontra. Majd a memória felszabadítása előtt még látjuk a write függvényt, amelyet szintén tartalmaz a program elején meghívott csomag, és ezzel kapjuk vissza a módosított képet.
+        </para>
+        <para>
+Az mlp.hpp fájlból még kiemelnék egy két dolgot, ami szerintem lényeges lehet a Perceptron megismeréséhez. Ha elkezdjük nézegetni, rögtön szemet szúrhat a Perceptron ( int nof, ... ) meghatározása. Ez lenne a változó számú paraméterlista, amelyről a feladat a nevét kapta, illetve az olvasónaplóban találkozhattunk vele. Előbbi a számukat fogja meghatározni, hiszen ez fogja a rétegek számát is megadni, mint ahogyan az látszott a példányosításnál (pár sorral ezelőtt, jelen esetben 3 volt), utóbbi pedig maga a paraméterlista (szintén látszott a példányosításnál, illetve leírtam melyik mi). Valamint amit még kiemelnék, azok a változó paraméterlistához szükséges dolgok, tehát a va_list típus, mivel enélkül a va_start() és a  va_args() is elérhetetlen lenne. A va_start()-ra az inicializálásnál van szükség, a va_args() pedig mint ahogyan az elenevezése is sugallja az argumentumokkal dolgozik. A lezárásuk (vagyis a lista lezárása) pedig a va_end(), amelyet nem szabad kihagyni (egyfajta szabálynak is nevezhetném).
+        </para>
+        <para>
+Megjegyzésként fűzném még ide, hogy a fordításnál még figyeljünk, ne ott csússzon be egy ügyetlen hiba. Vagyis eközben a -lpng kapcsolót ne hagyjuk le, mert fontos. A futtatásnál pedig ne felejtsük el megadni a módosítani kívánt képet.
+        </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Strous/perc.png" format="png"/>
+        </imageobject>
+    </mediaobject>
     </section>        
         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
