@@ -7,8 +7,9 @@
     </info>
 
     <section>
-        <title>A BPP algoritmus Java megvalósítása</title>
+        <title>STL map érték szerinti rendezése</title>
         <para>
+            Például: https://github.com/nbatfai/future/blob/master/cs/F9F2/fenykard.cpp#L180
         </para>
         <para>
             Megoldás videó:
@@ -17,14 +18,25 @@
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+A feladatban rendezést kell végrehajtanunk, bár nem teljesen olyan formában, mint eddig. Itt a map-ra lesz szükségünk, amely lényegében kulcs-érték párként szolgál. Az elején abc szerint van rendezve, tehát a kulcsok lettek abc sorrendbe rendezve, majd ezen szeretnénk változtatni, és a végén az értékek szerinti csökkenő sorrendet szeretnénk kapni. Lényegében most ennek a bemutatásáról szól ez a feladat. Akkor most jöhet a forrás elemzése is kicsit. Amikor létrehozzunk az új mapunkat, akkor megjelenítünk egy insertet is, amely értékadésra szolgál, a map létrehozásában pedig a make_pair van a segítségünkre. Illetve az elején láthatjuk, hogy vektorokra is szükség van a rendezéshez, itt ezek a pair vektorok lesznek. A p1 illetve p2.second pedig a rendezésben vesz részt, ezekkel tudjuk érték szerint rendezni. A beginnel megadjuk, hogy az it legyen az első érték, amit vizsgál a rendezés során. A while ciklus fogja bejárni a mapokat, addig, ameddig a rendezés meg nem történt. A rendezett vektor szolgál arra, hogy a már elrendezett elemeket a megfelelő sorrendben letárolja. Majd a már említett p1 és p2.second tényleges rendezéséhez még felhasználunk egy lambda kifejezést, ez fogja véglegesen rendezni. Ez a p1 és p2-őt hasonlítja össze folyamatosan a vizsgálat alatt, és megnézi, hogy melyik a nagyobb. Ha a p1 a nagyobb, akkor jó, ha a p2, akkor nem. És ezt végig vizsgálja és rendezi egészen addig, ameddig minden érték a megfelelő sorrendbe nem kerül. Majd a kiíratásnál látszik ez pontosabban, a kezdeti kiinduló (abs szerinti rendezés), majd a végén az érték szerinti rendezés, és a kettő között láthatjuk a p1 és p2 folyamatos összehasonlítását.
         </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Gödel/map1.png" format="png" scale='50'/>
+        </imageobject>
+    </mediaobject>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Gödel/map2.png" format="png" scale='50'/>
+        </imageobject>
+    </mediaobject>
     </section>        
 
     <section>
-        <title>Java osztályok a Pi-ben</title>
+        <title>Alternatív Tabella rendezése</title>
         <para>
-            Az előző feladat kódját fejleszd tovább: vizsgáld, hogy Vannak-e Java osztályok a Pi hexadecimális kifejtésében!
+            Mutassuk be a https://progpater.blog.hu/2011/03/11/alternativ_tabella a programban a java.lang
+Interface Comparable szerepét!
         </para>
         <para>
             Megoldás videó:
@@ -33,8 +45,74 @@
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+Ennek a feladatnak elég erős focis kötődése van. Lényegében rangsorolja a csapatokat, és becslést végez a várható végkimenetelről. Először is a Wiki2Matrix-szal kellett foglalkozni. Az eredeti forráshoz képest annyit szerintem érdemes volt átírni, hogy aktualizáljuk kicsit a progit. Ebben ugyanis szerepel egy mátrix, amely a csapatok egymás elleni eredményét tartalmazza 0,1,2,3 formában. A végeredmény is akkor fogja az aktuális állást mutatni, ha ez át van írva, hiszen azt a mátrixot, amit ez legenerál, át kell ültetni az alternatív tabellába. Ez volt a kereszt mátrix, amiről beszéltem. Ezt nem is részletezném tovább, hiszen a feladat a comparable szerepét kérdezi, ez pedig az alternatív tabellában fog szerepelni. Ennek nagy szerepe lesz a rendezésben, ugyanis ez végzi az összehasonlítást és a rendezést. Ebben szerepel egy compareTo (metódus), ez végzi a hasonlítást, ugyanis paraméterként megkap egy objektumot, és ezt összehasonlítja az aktuálissal, majd ezt adja vissza visszatérési értékként.
         </para>
+        <programlisting language="c"><![CDATA[
+public int compareTo(Csapat a) {
+    if (this.getErtek() < a.getErtek()) {
+      return 1;
+    } else if (this.getErtek() > a.getErtek()) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
+]]></programlisting>
+        <para>
+Tehát megnézi, hogy melyik a nagyobb, vagy 0 értéket ad ha egyenlő a 2. A végleges rendezést a sort fogja elvégezni tehát: Collections.sort(uj). A interfészre pedig amiatt van szükségünk, hogy mindent (típust) meg tudjunk vizsgálni, amit abban deklaráltunk. A sortnál 3 rendezés megy végbe végül is, ha jobban megnézzük. A csapatok név szerinti rendezése, illetve utána a hozzájuk tartozó értékek. Majd a végén duplázva látjuk az eredményt, ezért a regi és az ujnev felel.
+        </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Gödel/tab1.png" format="png" scale='50'/>
+        </imageobject>
+    </mediaobject>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Gödel/tab2.png" format="png" scale='50'/>
+        </imageobject>
+    </mediaobject>
+    </section>        
+
+    <section>
+        <title>GIMP Scheme hack</title>
+        <para>
+            Ha az előző félévben nem dolgoztad fel a témát (például a mandalás vagy a króm szöveges
+dobozosat) akkor itt az alkalom!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+Ebben a feladatban a mandalát választottam. Ide a végeredményt fogom beszúrni. A gimpben van egy külön konzol (Script-Fu), amely a lispet használja saját nyelvként. Ennek segítségével akár egyszerűbb számításokat, de akár érdekes képeket is készíthetünk. Ilyen például a króm effektes keret, vagy egy mandala szövegből elkészítve. Nos, hogyan is készül ilyen formában egy mandala. Mivel egy egyszerű néhány betűs szövegre van csak szükség, így ha ezt körbe forgatjuk (360 fokban), akkor meg is kapjuk. Ezt egy függvény hajtja végre, ez pedig a gimp-item-transform-rotate-simple. A forrásban tudjuk állítani a betűk méretét, a szöveg szélességét és magasságát, valamint a betűtípust is. Például:
+        </para>
+<programlisting language="c"><![CDATA[
+    (set! textfs-width (- textfs-width 70))
+    (set! textfs-height (- textfs-height 70))
+]]></programlisting>
+        <para>
+Létezik egy drawable függvény is, ami a kirajzolásra szolgál. Itt pixelekben kell gondolkozni, amikor rajzolni szeretnénk valamit. Egy példa a drawable-re, de ez persze többször is szerepel a forrásban, a meghatározások szerint változóan.
+        </para>
+    <programlisting language="c"><![CDATA[
+    (set! text-layer (car (gimp-layer-new-from-drawable textfs image)))
+    (gimp-image-insert-layer image text-layer 0 -1)
+    (gimp-item-transform-rotate-simple text-layer ROTATE-180 TRUE 0 0)
+    (set! textfs (car(gimp-image-merge-down image text-layer CLIP-TO-BOTTOM-LAYER)))
+]]></programlisting>
+    <para>
+Ezek után nem sokkal találkozhatunk a gimp-context-set-brush-size függvénnyel, aminek az értéke az én esetemben 22. Ez szintén a rajzolásnál kap szerepet, ugyanis ez jeleníti meg az ecset méretét amivel elkészül a kép, valamint a keret is hasonló módon van megadva, egy függvénnyel, valamint az annak adott érték állítja be a vastagságát. Mivel két keret van, ez kell 2-szer, és érdemes különböző értékeket adni, így más lesz a vastagságuk. A futtatás pedig: Tehát megadjuk a szöveget amit megjeleníteni szeretnénk, valamint azok mérete, betűtípusa és a színek, amilyenre színezni szeretnénk. Pontosabban színskála a színátmenet miatt. Amúgy szerintem érdemes lementeni a forrást, így bármikor használható, és egy grafikus felületen tudjuk ezeket beállítani, nem a forrásban kellene mindig módosítani.
+    </para>
+    <programlisting language="c"><![CDATA[
+(script-fu-bhax-mandala "forgatottszöveg" "középenszöveg" "Ruge Boogie" 120 1920 1080 '(255 0 0) "Shadows 3")
+    ]]></programlisting>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Gödel/gimp2.png" format="png" />
+        </imageobject>
+    </mediaobject>
+
     </section>        
         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
