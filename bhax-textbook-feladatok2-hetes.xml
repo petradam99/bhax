@@ -7,8 +7,9 @@
     </info>
 
     <section>
-        <title>A BPP algoritmus Java megvalósítása</title>
+        <title>FUTURE tevékenység editor</title>
         <para>
+Javítsunk valamit a ActivityEditor.java JavaFX programon! https://github.com/nbatfai/future/tree/master/cs/F6 Itt láthatjuk működésben az alapot: https://www.twitch.tv/videos/222879467
         </para>
         <para>
             Megoldás videó:
@@ -17,14 +18,19 @@
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+A feladat hiba javítás, vagy új funkció hozzáfűzése volt, én az előbbivel szeretnék foglalkozni. A feladathoz szükséges volt a javafx telepítése, majd a kipróbáláshoz egy IDE-t, pontosabban az IntelliJ-t használtam. Az egyik hiba a fájlok létrehozásánál volt, nálam például az új fájlok amik létrehozásra kerültek a mappán belül bezárás után eltűntek. Illetve egy másik pedig, hogy azonos fájl névvel és kiterjesztéssel nem szerepelhet, erre lehetne megoldás ha a fájl nevében megjelenne egy plusz valami, ami mutatja, hogy más. Például egy zárójelben egy szám vagy karakter. Illetve még órán is megfigyelhettük tetszetél közben, hogy ha létrehoztunk egy filet, és azt átnevezzük, akkor a könyvtárában az nem neveződik át ténylegesen, tehát bezárás után szintén elveszik. A javításra a próbálkozások a forrásban figyelhetőek meg.
         </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Valami/future.png" format="png"/>
+        </imageobject>
+    </mediaobject>
     </section>        
 
     <section>
-        <title>Java osztályok a Pi-ben</title>
+        <title>SamuCam</title>
         <para>
-            Az előző feladat kódját fejleszd tovább: vizsgáld, hogy Vannak-e Java osztályok a Pi hexadecimális kifejtésében!
+Mutassunk rá a webcam (pl. Androidos mobilod) kezelésére ebben a projektben: https://github.com/nbatfai/SamuCam
         </para>
         <para>
             Megoldás videó:
@@ -33,9 +39,39 @@
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+Annyiban hasonlít a feladat a BrainB-hez, hogy itt is Qt-ra van szükségünk, illetve az opencv-t is telepíteni kellett. Akkor röviden kezdenék a Qt használatával a terminálosfuttatáshoz. Először is qmakelni kell, ez pedig a következő paranccsal hajtható végre: ~/Qt/5.12.2/gcc_64/bin/qmake SamuLife.pro . Ezután nyomjunk egy make parancsot, ezután pedig már tényleg minden fájlunk meglesz a futtatáshoz, ami ./SamuCam --ip http://127.0.0.1:8081/ 2>out, tehát localhoston futtatunk. Még ez is most olyan, mintha csak ./SamuCam parancs lett volna, mert a kamera még nem üzemképes. Laptopon csináltam a feladatot, tehát ip webkamera nélkül. Tehát ezután telepíteni kell a motion-t a gépre, és a config fájlját beállítani. Majd futtatásnál egy terminálban indítsuk el a kamerát, a másikban pedig a Samut, és így már működik. A forrásba egy stringen keresztül be van építve hogy a terminálból bekapott bemenetből olvassa be a kamera ip címét, és hogyan használja azt. A kamera beállításánál fontos, hogy nem csak 1-1 képre van szükségünk, hanem egy streamre, tehát azt kell továbbítania a kamerának a programhoz. Még szintén a forráson belül is tudjuk állítani a kamera beállításait, nem csak a motion configurálásánál. Ilyen például a szélesség és a magasság, tehát ahogyan megjelennek a képek a samuban. Ha pedig kipróbáljuk, megfigyelhetjük, hogy csak a tényleges arcokat ismeri fel, mást nem, és azt kezdi el elemezni, megtanulni, később pedig kipróbálhatjuk, hogy felismer e minket például újra.
         </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Valami/samu.png" format="png"/>
+        </imageobject>
+    </mediaobject>
     </section>        
+
+    <section>
+        <title>BrainB</title>
+        <para>
+Mutassuk be a Qt slot-signal mechanizmust ebben a projektben: https://github.com/nbatfai/esport-talent-search
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+A progival már találkozhattunk prog1-en is, és mivel már ott is foglalkoztam vele kicsit ezért bevezetőként csórnék belőle. A lényege viszont még mindig ugyan az, az esportolók képességeinek felmérése, vagy akár átlag emberekkel is lehet tesztelni, érdekes eredmények születhetnek belőle. Egy kirajzoló osztályunk van. A program lényegében az esportolók mérésére szolgál, követni kell egy bizonyos pontot, vagyis a hősünket. A hősünket vagyis a karakterünket egy külön osztály segítségével határozzuk meg a programban. Azt teszteli, hogy mennyire tudják az emberek a zavaró tényezők ellenére is követni a hősünket. A zavaró tényező például az, hogy plusz karakterek kerülnek be, a program pedig a követni kívánt karaktert is egyre zavaróbb módon mozgatja. A program futása közben adatot gyűjt, amit a futás után, ha bezártuk vagy ha végigvittük a játékot, és ezt eredményként kirakja nekünk egy külön fájlba/mappába, a programkód mellé. Mivel ehhez is szükséges a Qt program, így a fordítás futtatásra ügyelnünk kell. A fordítása: /home/user/QT/5.12.2/gcc_64/bin/qmake BrainB.pro, ezután make parancs, majd a futtatása ./BrainB . Nos akkor jöhet is a kérdés, a Qt slot-signal mechanizmus, erről írnék még kicsit röviden. A signalt a Q_Objectben találhatjuk meg bemutatásképp. Ennek a segítségével működtethetők a c++-os dolgok Qt-ben is. A fájlok létrehozásában is ez segít (qmake, hiszen ekkor generálódik le még több fájl is). A korábban ezek által legenerált kód szükséges a megfelelő működéshez, hiszen a jelek és a slot mechanizmus is igényli, ez lenne a slot-signal mechanizmus. A forrásban szerencsére az író most utaló neveket használt, ebből tudjuk, hogy a signalok mikor kerülnek használatba. Van egy cennect parancs is, ennek a jelentősége pedig, hogy összekapcsolja a signalokat a slottal. Például:
+        </para>
+        <programlisting language="c"><![CDATA[
+        connect ( brainBThread, SIGNAL ( heroesChanged ( QImage, int, int ) ),
+            this, SLOT ( updateHeroes ( QImage, int, int ) ) );
+        ]]></programlisting>
+        <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Valami/brainb.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    </section>       
         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
