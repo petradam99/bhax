@@ -1,14 +1,15 @@
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
     <info>
-        <title>Helló, Schwarzenegger!</title>
+        <title>Helló, Lauda!</title>
         <keywordset>
             <keyword/>
         </keywordset>
     </info>
 
     <section>
-        <title>A BPP algoritmus Java megvalósítása</title>
+        <title>Port scan</title>
         <para>
+Mutassunk rá ebben a port szkennelő forrásban a kivételkezelés szerepére! https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/ch01.html#id527287
         </para>
         <para>
             Megoldás videó:
@@ -17,14 +18,31 @@
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+A kivételkezelésről már az olvasmányokból is hallhattunk. Ez lényegében egy pici példa a megvalósítására. Ehhez szükséges a try-catch. A kód elején van megadva egy argumentum, ez azt a célt szolgálja, hogy a bemenetre a program várjon egy argumentumot, ami lényegében egy címet takar. A teszteléshez érdemes localhosttal kipróbálni, ezzel pedig végig nézzük egy for ciklussal a portjainkat egészen 1024-ig, majd eredményül megkapjuk, hogy vannak e nyitott portjaink, pontosabban a tcp kapcsolatokat vizsgálja végig. Ha sikerül ezzel új kapcsolatot létrehoznia, akkor találhatunk ott socket folyamatot, ha nem, akkor exceptiont, vagyis kivételt kapunk, tehát ekkor kapjuk azt, hogy "nem figyeli". Ez pedig ahogy a program megpróbál kapcsolatot létesíteni:
         </para>
-    </section>        
+        <programlisting language="c"><![CDATA[
+            java.net.Socket socket = new java.net.Socket(args[0], i)
+]]></programlisting>
+        <para>
+Ha pedig kíváncsiak vagyunk, de nem akarjuk végig vizsgálni azt az 1024 kiírt eredményt, akkor greppel le is szűrhetjük.
+        </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Lauda/port1.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Lauda/port2.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+
+    </section>      
 
     <section>
-        <title>Java osztályok a Pi-ben</title>
+        <title>AOP</title>
         <para>
-            Az előző feladat kódját fejleszd tovább: vizsgáld, hogy Vannak-e Java osztályok a Pi hexadecimális kifejtésében!
+Szőj bele egy átszövő vonatkozást az első védési programod Java átiratába! (Sztenderd védési feladat volt korábban.)
         </para>
         <para>
             Megoldás videó:
@@ -35,6 +53,28 @@
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+    </section>       
+
+    <section>
+        <title>Junit teszt</title>
+        <para>
+A https://progpater.blog.hu/2011/03/05/labormeres_otthon_avagy_hogyan_dolgozok_fel_egy_pedat poszt kézzel számított mélységét és szórását dolgozd be egy Junit tesztbe (sztenderd védési feladat volt korábban).
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+A Junit teszt lényegében pontosságot mér, illetve összehasonlítást végez. Java programokkal hajt végre unit tesztet. A feladat is meghatározta, hogy a binfa java változatát teszteljük le. Amennyiben a függvények helyesek az alapként használt fában, és az eredményét összehasonlítjuk a kézzel levezetettben, akkor egyeznie kell a kettőnek. Nos a teszt ezt ellenőrzi le. A megoldáshoz netbeanst használtam, pontosabban a junit tesztelőt, ami ide be van építve, tehát itt rá is lehet engedni a tesztelést.
+        </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Lauda/junit.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+
     </section>        
         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

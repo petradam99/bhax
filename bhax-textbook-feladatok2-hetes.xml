@@ -18,11 +18,22 @@ Javítsunk valamit a ActivityEditor.java JavaFX programon! https://github.com/nb
             Megoldás forrása:                
         </para>
         <para>
-A feladat hiba javítás, vagy új funkció hozzáfűzése volt, én az előbbivel szeretnék foglalkozni. A feladathoz szükséges volt a javafx telepítése, majd a kipróbáláshoz egy IDE-t, pontosabban az IntelliJ-t használtam. Az egyik hiba a fájlok létrehozásánál volt, nálam például az új fájlok amik létrehozásra kerültek a mappán belül bezárás után eltűntek. Illetve egy másik pedig, hogy azonos fájl névvel és kiterjesztéssel nem szerepelhet, erre lehetne megoldás ha a fájl nevében megjelenne egy plusz valami, ami mutatja, hogy más. Például egy zárójelben egy szám vagy karakter. Illetve még órán is megfigyelhettük tetszetél közben, hogy ha létrehoztunk egy filet, és azt átnevezzük, akkor a könyvtárában az nem neveződik át ténylegesen, tehát bezárás után szintén elveszik. A javításra a próbálkozások a forrásban figyelhetőek meg.
+A feladat hiba javítás, vagy új funkció hozzáfűzése volt, én az előbbivel szeretnék foglalkozni. A feladathoz szükséges volt a javafx telepítése, majd a kipróbáláshoz egy IDE-t, pontosabban az IntelliJ-t használtam. Az egyik hiba a fájlok létrehozásánál volt, nálam például az új fájlok amik létrehozásra kerültek a mappán belül bezárás után eltűntek. Illetve egy másik pedig, hogy azonos fájl névvel és kiterjesztéssel nem szerepelhet, erre lehetne megoldás ha a fájl nevében megjelenne egy plusz valami, ami mutatja, hogy más. Például egy zárójelben egy szám vagy karakter. Illetve még órán is megfigyelhettük tetszetél közben, hogy ha létrehoztunk egy filet, és azt átnevezzük, akkor a könyvtárában az nem neveződik át ténylegesen, tehát bezárás után szintén elveszik. A javításra a próbálkozások a forrásban figyelhetőek meg. És az egyik hiba kiküszöbölése ami a feladat volt:
         </para>
+        <programlisting language="c"><![CDATA[
+    try {
+        if (oldf.isDirectory()) {
+            oldf.renameTo(newf);
+        } else {
+            oldf.renameTo(newf);
+        }
+    } catch (Exception e) {
+        System.err.println(e.getMessage());
+    }
+        ]]></programlisting>
     <mediaobject>
         <imageobject condition="print">
-         <imagedata fileref="Prog2/Képek/Valami/future.png" format="png"/>
+         <imagedata fileref="Prog2/Képek/Valami/tree.png" format="png"/>
         </imageobject>
     </mediaobject>
     </section>        
