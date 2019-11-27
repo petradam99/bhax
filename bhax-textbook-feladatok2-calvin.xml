@@ -51,8 +51,24 @@ Telepítsük fel, és próbáljuk ki!
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+Jelen esetben tesztelés volt a feladat. A forrás a tensorflow által készített detektáló volt, amelyet a tensorflow github oldalán találhatunk meg és mindenki számára elérhető. Mivel az egész projekthez hozzá lehet férni, így a legcélszerűbb megoldásnak azt láttam, ha az android studiot hívom segítségül, és telefonon keresztül futtatom. Maga a program hagy kívánnivalót maga után, hiszen ha megnézzük elég érdekes teszteredményeket produkál le. Igaz, vannak tárgyak amiket felismer, de azokat is sokszor úgy, hogy abszolút nem biztos abban, hogy helyes volt e. Néhány példa (ahol a billentyűzetet és telefont felismeri, utóbbit végre határozottan, de a harmadik példánál a csoki és a hotdog szerintem kicsit más):
         </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Calvin/tf1.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Calvin/tf3.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Calvin/tf2.png" format="png"/>
+        </imageobject>
+    </mediaobject>
+
     </section>        
 
     <section>

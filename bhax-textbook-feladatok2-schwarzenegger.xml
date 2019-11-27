@@ -41,6 +41,7 @@ Ha pedig kíváncsiak vagyunk, de nem akarjuk végig vizsgálni azt az 1024 kií
 
     <section>
         <title>AOP</title>
+        <para>Tutorom volt: Tóth Attila </para>
         <para>
 Szőj bele egy átszövő vonatkozást az első védési programod Java átiratába! (Sztenderd védési feladat volt korábban.)
         </para>
@@ -51,8 +52,13 @@ Szőj bele egy átszövő vonatkozást az első védési programod Java átirat�
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+A feladat alapja a binfa és az aspectj. A fánk alapjároaton inorder bejárású, most pedig kapnunk kellene egy pre- és egy posztorder bejárást is. Itt jön képbe az aspectj, amivel megoldható a probléma, tehát a többi eredmény az eredeti forrás módosítása nélkül. Először telepíteni kell az aspectj-t, majd azután jöhet a kínlódás. Az aspectj fájlban kell ezek után megírni a kétféle bejárást, de még igazán nem is ez a fogós része, hanem a "becsatolások", hiszen valahogy meg kell oldani, hogy a binfa java fájlja alapján dolgozza fel, tehát az itt megírt részekhez valahogyan hozzá kellene társítani a fát. Erre szolgál a pointcut, amiben meghatározzuk magát a pointcutot, a nevét és az argumentumait, valamint lehetőségünk van arra is, hogy meghatározzuk, hogy ez mikor és pontosan hol fusson le egy metódushoz viszonyítva. Ezt próbáltam az előbb magyarázni a becsatolással. De akkor a példa a működésre:
         </para>
+    <mediaobject>
+        <imageobject condition="print">
+         <imagedata fileref="Prog2/Képek/Lauda/aj.png" format="png"/>
+        </imageobject>
+    </mediaobject>
     </section>       
 
     <section>
@@ -67,7 +73,7 @@ A https://progpater.blog.hu/2011/03/05/labormeres_otthon_avagy_hogyan_dolgozok_f
             Megoldás forrása:                
         </para>
         <para>
-A Junit teszt lényegében pontosságot mér, illetve összehasonlítást végez. Java programokkal hajt végre unit tesztet. A feladat is meghatározta, hogy a binfa java változatát teszteljük le. Amennyiben a függvények helyesek az alapként használt fában, és az eredményét összehasonlítjuk a kézzel levezetettben, akkor egyeznie kell a kettőnek. Nos a teszt ezt ellenőrzi le. A megoldáshoz netbeanst használtam, pontosabban a junit tesztelőt, ami ide be van építve, tehát itt rá is lehet engedni a tesztelést.
+A Junit teszt lényegében pontosságot mér, illetve összehasonlítást végez. Java programokkal hajt végre unit tesztet. A feladat is meghatározta, hogy a binfa java változatát teszteljük le. Amennyiben a függvények helyesek az alapként használt fában, és az eredményét összehasonlítjuk a kézzel levezetettben, akkor egyeznie kell a kettőnek. Nos a teszt ezt ellenőrzi le. A megoldáshoz netbeanst használtam, pontosabban a junit tesztelőt, ami ide be van építve, tehát itt rá is lehet engedni a tesztelést. A binfáról pedig nem kezdenék el megint írni, azzal korábban már találkozhattunk.
         </para>
     <mediaobject>
         <imageobject condition="print">
