@@ -59,7 +59,7 @@ public int compareTo(Csapat a) {
   }
 ]]></programlisting>
         <para>
-Tehát megnézi, hogy melyik a nagyobb, vagy 0 értéket ad ha egyenlő a 2. A végleges rendezést a sort fogja elvégezni tehát: Collections.sort(uj). A interfészre pedig amiatt van szükségünk, hogy mindent (típust) meg tudjunk vizsgálni, amit abban deklaráltunk. A sortnál 3 rendezés megy végbe végül is, ha jobban megnézzük. A csapatok név szerinti rendezése, illetve utána a hozzájuk tartozó értékek. Majd a végén duplázva látjuk az eredményt, ezért a regi és az ujnev felel.
+Tehát megnézi, hogy melyik a nagyobb, vagy 0 értéket ad ha egyenlő a 2. A végleges rendezést a sort fogja elvégezni tehát: Collections.sort(uj). A interfészre pedig amiatt van szükségünk, hogy mindent (típust) meg tudjunk vizsgálni, amit abban deklaráltunk. A sortnál 3 rendezés megy végbe végül is, ha jobban megnézzük. A csapatok név szerinti rendezése, illetve utána a hozzájuk tartozó értékek. Majd a végén duplázva látjuk az eredményt, ezért a regi és az ujnev felel. A Comparable interfészre a csapat létrehozásánál van szükségünk. Ez az interfész implementál egy "T" típust, amely a forrásban relációjelek között van beírva. Ezek után pedig még a rendezésekre van szükségünk, a csapatok miatt például lista rendezésre (list.sort, amit a javaban meg is találhatunk forrásként).
         </para>
     <mediaobject>
         <imageobject condition="print">

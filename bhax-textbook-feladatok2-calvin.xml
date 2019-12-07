@@ -25,7 +25,7 @@ A feladat megoldásához első lépésként telepítenünk kell a tensorflowt. E
 img = readimg()
         ]]></programlisting>
         <para>
-A tanítás után először egy tesztképet kap, egy 4-est (sikeresen felismerte), majd ezután jött a saját kép, amit szintén jól ismert fel. Viszont mivel ez lényegében egy neurális háló, a pontossága befolyásolható például a rétegek (vagy hiddenek) számának a módosításával, bár meg kell jegyezni, hogy ez egy módosított neurális háló, kicsit másabb a működése az általunk eddig megismertéhez képest.
+A tanítás után először egy tesztképet kap, egy 4-est (sikeresen felismerte), majd ezután jött a saját kép, amit szintén jól ismert fel. Viszont mivel ez lényegében egy neurális háló, a pontossága befolyásolható például a rétegek (vagy hiddenek) számának a módosításával, bár meg kell jegyezni, hogy ez egy módosított neurális háló, kicsit másabb a működése az általunk eddig megismertéhez képest. Amit a tanításról még kihagytam: először is egy modellt kell megalkotnunk, és ezt fogja a program tetszelni. Ennek eredményéül fogjuk megkapni, hogy felismerte a program az első tesztképünket, majd ezután próbálja meg a saját számot. A hálózat pontosságának meghatározása, és a tesztelés is itt történik.
         </para>
         <mediaobject>
         <imageobject condition="print">
