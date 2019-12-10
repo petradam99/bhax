@@ -33,6 +33,29 @@ A magas szintű programozási nyelvekre jellemző az OO szemlélet, vagyis az ob
 	<para>
 Ha érdekel minket, akkor a JDK-ból is kinyerhető a program egy kicsit másabb formában, de a lényege ugyan az: /jdk/src/share/classes/java/util és itt a Random.java fájl.
 	</para>
+     <programlisting language="java"><![CDATA[
+            synchronized public double nextGaussian() {
+        // See Knuth, ACP, Section 3.4.1 Algorithm C.
+        if (haveNextNextGaussian) {
+            haveNextNextGaussian = false;
+            return nextNextGaussian;
+        } else {
+            double v1, v2, s;
+            do {
+                v1 = 2 * nextDouble() - 1; // between -1 and 1
+                v2 = 2 * nextDouble() - 1; // between -1 and 1
+                s = v1 * v1 + v2 * v2;
+            } while (s >= 1 || s == 0);
+            double multiplier = StrictMath.sqrt(-2 * StrictMath.log(s)/s);
+            nextNextGaussian = v2 * multiplier;
+            haveNextNextGaussian = true;
+            return v1 * multiplier;
+        }
+        }
+          ]]></programlisting>
+    <para>
+Ez a kódcsipet pedig fent a jdk forrás, amely hasonlít a programunkhoz. A legszembetűnőbb különbséget a két nyelv közti különbség, vagyis a Java és a C++ adja. A java osztályszerkezete és objektumorientáltságát figyelhetjük itt meg, amelytől nincs lehetőség eltérni, beleértve a példányosítást (new, még a másikban az osztály neve és az objektum neve szükséges hozzá), stb... C++-ban viszont amennyiben találunk más megoldást, akkor nem szükséges ragaszkodni ehhez az objektumorientáltsághoz.
+    </para>
 	<para>
 A Java csipetek amiről írtam: az elsőben a minden második futás, illetve a 2 random szám generálása, illetve a negálás és az érték amit visszakapunk.
 	</para>
@@ -134,8 +157,18 @@ példányokat poolozza!
 Ahogy látom ez a feladat a Java osztálykezelésére és az objektumaira helyezi a hangsúlyt, mint ahogyan azt az olvasónaplóban is olvashattuk. Az Intiger osztály -128 és 127-es érték között pooloz, vagyis ezt készíti elő a poolban. A Java nyelv készítői úgy gondolták, hogy ez elég lesz a fejlesztők számára, itt fog megmutatkozni a 2 bemutatott pici program közötti különbség. Amennyiben az említett érték közötti értéket adunk meg, akkor a program simán lefut, mivel a ciklus feltétele teljesül, kilép, és visszakapjuk a kívánt eredményt. Amennyiben viszont ha az érték kívül esik a -128 és 127 közötti tartományon, akkor az Intiger osztály egy új objektumot fog létrehozni. Ennek a következménye pedig, hogy a while ciklus false értéket fog kapni, ekkor nem fut le a program, hanem átcsap egy végtelen ciklusba. A következő kódcsipet pedig a "new" operátor értelmét mutatja meg, ugyanis ha poolozunk, akkor két különböző objektum azonos referenciát kapna, viszont ha használjuk a new-t, akkor a probléma megszüntethető.
 	</para>
 	<para>
-Ha érdekel minket, akkor a JDK-ból is kinyerhető a program egy kicsit másabb formában, de a lényege ugyan az: /jdk/src/share/classes/java/lang és ebben a mappában az Intiger.java fájl tartalmazza.
+Ha érdekel minket, akkor a JDK-ból is kinyerhető a program egy kicsit másabb formában, de a lényege ugyan az: /jdk/src/share/classes/java/lang és ebben a mappában az Intiger.java fájl tartalmazza. Itt megfigyelhetjük az Intiger osztolyban, hogy van egy valueof(int valami) függvény, és ez fog lefutni, valamint végzi el a fentebb említett poolozást, valamint az értékeit a -128; 127 tartományból/intervallumból származik. Ez a Gagyi programunk alapja lényegében. Az alábbiakban pedig fent a jdk forrásból kódcsipet, amelynek van köze a feladathoz, alul pedig a feladat kódcsipete:
 	</para>
+
+<programlisting language="java"><![CDATA[
+    public static Integer valueOf(int i) {
+        final int offset = 128;
+        if (i >= -128 && i <= 127) { // must cache
+    return IntegerCache.cache[i + offset];
+    }
+    return new Integer(i);
+    }
+]]></programlisting>
 
 <programlisting language="java"><![CDATA[
 Integer x = new Integer(-127);

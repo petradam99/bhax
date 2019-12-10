@@ -27,6 +27,17 @@ img = readimg()
         <para>
 A tanítás után először egy tesztképet kap, egy 4-est (sikeresen felismerte), majd ezután jött a saját kép, amit szintén jól ismert fel. Viszont mivel ez lényegében egy neurális háló, a pontossága befolyásolható például a rétegek (vagy hiddenek) számának a módosításával, bár meg kell jegyezni, hogy ez egy módosított neurális háló, kicsit másabb a működése az általunk eddig megismertéhez képest. Amit a tanításról még kihagytam: először is egy modellt kell megalkotnunk, és ezt fogja a program tetszelni. Ennek eredményéül fogjuk megkapni, hogy felismerte a program az első tesztképünket, majd ezután próbálja meg a saját számot. A hálózat pontosságának meghatározása, és a tesztelés is itt történik.
         </para>
+        <para>
+Az alábbi kódcsipet pedig a a modellt jeleníti meg (forrásból kiemelve), pontosabban a modell létrehozása. Az első 3 érték, amelyek függvénnyel számolódnak ki, kerülnek továbbadásra a 4.-hez (tf.matmul függvényhez). Az értékeknél a W jelöli a súlyozást, a b pedig egy konstans (bias az eredeti megnevezése). Az x-nél pedig felfedezhetjük a feldolgozott kép méretét, ami 28*28, tehát 784 pixelt jelent. Ezt az egészet egy mátrix szerű feldolgozáshoz tudnám hasonlítani. Az y=tf.matmul-ban pedig ha visszagondolunk a korábbi matekos tapaszalatainkra, akkor felfedezhetünk egy egyenest, ami egy választóvonalat jelent a jó és a rossz eredmények között. A 10-es paraméter pedig a kimenetek számát mutatja (a számok 0-9 között), illetve amit még érdemes tudni itt a soft mnistről, hogy a hidenek száma 1.
+        </para>
+
+<programlisting language="c"><![CDATA[
+  x = tf.placeholder(tf.float32, [None, 784])
+  W = tf.Variable(tf.zeros([784, 10]))
+  b = tf.Variable(tf.zeros([10]))
+  y = tf.matmul(x, W) + b
+]]></programlisting>
+
         <mediaobject>
         <imageobject condition="print">
          <imagedata fileref="Prog2/Képek/Calvin/mnist1.png" format="png"/>
